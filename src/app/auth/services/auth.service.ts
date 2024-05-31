@@ -21,16 +21,18 @@ export class AuthService {
   }
 
   private setAuthentication(user: User, token: string): boolean{
+
     this._currentUser.set(user);
     this._authStatus.set(AuthStatus.authenticated);
     localStorage.setItem('token', token);
+    
     return true;
   }
 
   login(email: string, password: string): Observable<boolean> {
     const url = `${this.baseUrl}/auth/login`;
 
-    console.log(url);
+    // console.log(url);
 
     const body = { email, password };
 
@@ -48,13 +50,13 @@ export class AuthService {
     const url = `${this.baseUrl}/auth/checkToken`;
     const token = localStorage.getItem('token');
 
-    if (!token){
+    if ( !token ){
       this.logout();
       return of(false);
     } 
 
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${token}`);
+      .set('Authorization', `Bearer ${ token }`);
 
     return this.http.get<CheckTokenResponse>(url, { headers })
       .pipe(

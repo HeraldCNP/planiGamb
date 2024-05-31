@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoaderDirective } from '../../../directivess/loader.directive';
+import { LoaderDirective } from '../../../directives/loader.directive';
 
 @Component({
   selector: 'app-login',

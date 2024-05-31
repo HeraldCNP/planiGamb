@@ -1,0 +1,9 @@
+<form [formGroup]="yearForm" (ngSubmit)="onYearSelected()">
+    <mat-form-field appearance="fill">
+      <mat-label>Seleccione el año</mat-label>
+      <mat-select formControlName="selectedYear">
+        <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="submit">Submit</button>
+  </form>

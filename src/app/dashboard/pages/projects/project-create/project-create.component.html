@@ -1,0 +1,135 @@
+<div class="row px-2">
+    <div class="col-md-12">
+      <mat-card>
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <mat-card-header>
+              <mat-card-title> <span>Crear Archivo: Leyes</span></mat-card-title>
+              <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+              <span class="spacer"></span>
+  
+  
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <form class="create-form" [formGroup]="archivoForm">
+              <mat-card-content>
+                <!-- <mat-form-field class="full-width">
+            <mat-label>Correo Electronico</mat-label>
+            <input type="email" matInput placeholder="Correo Electronico" formControlName="email">
+          </mat-form-field> -->
+  
+  
+                <mat-form-field class="full-width">
+                  <mat-label>Número</mat-label>
+                  <input matInput placeholder="Ej. ....." formControlName="numero" type="number">
+                  <mat-icon matSuffix>123</mat-icon>
+                  <mat-error *ngIf="form['numero'].hasError('required') && form['numero'].touched">
+                    El numero es obligatorio.
+                  </mat-error>
+                  <mat-error *ngIf="form['numero'].hasError('numero') && form['numero'].touched">
+                    El numero de ser valido.
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="full-width">
+                  <mat-label>Detalle</mat-label>
+                  <input matInput placeholder="Ej. ....." formControlName="detalle" type="text">
+                  <mat-icon matSuffix>edit_note</mat-icon>
+                  <mat-error *ngIf="form['detalle'].hasError('required') && form['detalle'].touched">
+                    El detalle es obligatorio.
+                  </mat-error>
+                  <mat-error *ngIf="form['detalle'].hasError('detalle') && form['detalle'].touched">
+                    El detalle de ser valido.
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="inline">
+                  <mat-label>Fecha de Aprobación</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="fechaAprobacion">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="form['fechaAprobacion'].hasError('required') && form['fechaAprobacion'].touched">
+                    El fechaAprobacion es obligatorio.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="form['fechaAprobacion'].hasError('fechaAprobacion') && form['fechaAprobacion'].touched">
+                    El fechaAprobacion de ser valido.
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="inline right">
+                  <mat-label>Fecha de Promulgación</mat-label>
+                  <input matInput [matDatepicker]="picker2" formControlName="fechaPromulgacion">
+                  <mat-hint>MM/DD/YYYY</mat-hint>
+                  <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                  <mat-datepicker #picker2></mat-datepicker>
+                  <mat-error *ngIf="form['fechaPromulgacion'].hasError('required') && form['fechaPromulgacion'].touched">
+                    El fechaPromulgacion es obligatorio.
+                  </mat-error>
+                  <mat-error
+                    *ngIf="form['fechaPromulgacion'].hasError('fechaPromulgacion') && form['fechaPromulgacion'].touched">
+                    El fechaPromulgacion de ser valido.
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="full-width">
+                  <mat-label>Fojas</mat-label>
+                  <input matInput placeholder="Ej. ....." formControlName="fojas" type="number">
+                  <mat-icon matSuffix>format_list_numbered_rtl</mat-icon>
+                  <mat-error *ngIf="form['fojas'].hasError('required') && form['fojas'].touched">
+                    El fojas es obligatorio.
+                  </mat-error>
+                  <mat-error *ngIf="form['fojas'].hasError('fojas') && form['fojas'].touched">
+                    El fojas de ser valido.
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="full-width">
+                  <mat-label>Observaciones</mat-label>
+                  <textarea matInput placeholder="....." formControlName="observaciones"></textarea>
+                  <mat-icon matSuffix>post_add</mat-icon>
+                  <mat-error *ngIf="form['observaciones'].hasError('required') && form['observaciones'].touched">
+                    El observaciones es obligatorio.
+                  </mat-error>
+                  <mat-error *ngIf="form['observaciones'].hasError('observaciones') && form['observaciones'].touched">
+                    El observaciones de ser valido.
+                  </mat-error>
+                </mat-form-field>
+  
+                <mat-form-field class="full-width">
+                  <input matInput [value]="'Seleccionar un archivo'" />
+                  <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" />
+                  <mat-icon matSuffix>upload_file</mat-icon>
+                </mat-form-field>
+                <p *ngIf="uploadProgress">Progreso de la subida: {{uploadProgress}}%</p>
+  
+  
+  
+  
+              </mat-card-content>
+            </form>
+            <mat-card-actions align="end">
+              <button class="mx-2" mat-raised-button (click)="cancel()">Cancelar</button>
+              <button class="mx-2" (click)="onSubmit()" mat-raised-button color="primary"
+                [disabled]="archivoForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+            </mat-card-actions>
+  
+          </div>
+        </div>
+      </mat-card>
+  
+  
+      {{archivoForm.value | json}}
+  
+      <!-- <button (click)="saveCarpeta()" *ngIf="inputData.id === 0" mat-raised-button color="primary"
+          [disabled]="carpetaForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+        <button (click)="editCarpeta(inputData.id)" *ngIf="inputData.id !== 0" mat-raised-button color="primary"
+          [disabled]="carpetaForm.invalid"><mat-icon>save</mat-icon>Editar</button> -->
+  
+  
+  
+  
+    </div>
+  </div>
+  

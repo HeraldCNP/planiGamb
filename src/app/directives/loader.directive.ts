@@ -15,7 +15,7 @@ export class LoaderDirective {
     private loaderService: LoaderService
   ) {
     effect(() => {
-      console.log('directiva', this.loaderService.isLoading());
+      // console.log('directiva', this.loaderService.isLoading());
       if (this.loaderService.isLoading()) {
         this.disabled();
       } else {

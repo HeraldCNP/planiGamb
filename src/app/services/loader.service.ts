@@ -12,7 +12,7 @@ export class LoaderService {
     
     this.counter ++;
     if(this.counter === 1) {
-      console.log(true);
+      // console.log(true);
       this.isLoading.set(true);
     }
     
@@ -23,7 +23,7 @@ export class LoaderService {
     this.counter --; 
     
     if(this.counter === 0) {
-      console.log(false);
+      // console.log(false);
       this.isLoading.set(false);
     }
     

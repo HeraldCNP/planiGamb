@@ -19,7 +19,7 @@ export class DashboardLayoutComponent {
 
   constructor() {
     this.sidebarItems = [
-      { label: 'BD', icon: 'storage', url: './db' },
+      { label: 'Proyectos', icon: 'storage', url: './projects' },
       { label: 'Usuarios', icon: 'group', url: './users' },
       { label: 'Tipos de Discapacidad', icon: 'accessible_forward', url: './tiposDiscapacidad' },
       { label: 'Beneficiarios', icon: 'diversity_3', url: './beneficiaries' },
