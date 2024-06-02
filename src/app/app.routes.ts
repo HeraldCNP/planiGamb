@@ -5,7 +5,7 @@ import { isNotAuthenticatedGuard } from './auth/guards/is-not-authenticated.guar
 export const routes: Routes = [
     {
         path: 'auth',
-        canActivate: [isNotAuthenticatedGuard],
+        // canActivate: [isNotAuthenticatedGuard],
         loadChildren: () => import('./auth/auth.routes').then(m => m.AUTH_ROUTES),
     },
     // {
@@ -14,7 +14,7 @@ export const routes: Routes = [
     // },
     {
         path: 'dashboard',
-        canActivate: [isAuthenticateGuard],
+        // canActivate: [isAuthenticateGuard],
         loadChildren: () => import('./dashboard/dashboard.routes').then(m => m.DASHBOARD_ROUTES),
     }
 ]; 

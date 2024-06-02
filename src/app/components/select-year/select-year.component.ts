@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, FormGroupDirective, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material/material.module';
 
 @Component({
@@ -11,26 +11,18 @@ import { MaterialModule } from '../../material/material.module';
 })
 export class SelectYearComponent implements OnInit {
 
+  @Input() control!: FormControl ;
   years: number[] = [];
-  yearForm: FormGroup;
 
-  constructor() {
-    this.yearForm = new FormGroup({
-      selectedYear: new FormControl('')
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {
-    this.generateYears(5); // Generar los últimos 5 años, puedes cambiar este valor según sea necesario
+    this.generateYears(10); // Generar los últimos 5 años, puedes cambiar este valor según sea necesario
   }
 
   generateYears(n: number): void {
     const currentYear = new Date().getFullYear();
     this.years = Array.from({ length: n }, (v, i) => currentYear - i);
-  }
-
-  onYearSelected(): void {
-    console.log(`Año seleccionado: ${this.yearForm.get('selectedYear')?.value}`);
   }
 
 }
