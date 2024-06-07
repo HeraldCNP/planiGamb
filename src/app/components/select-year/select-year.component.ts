@@ -12,6 +12,7 @@ import { MaterialModule } from '../../material/material.module';
 export class SelectYearComponent implements OnInit {
 
   @Input() control!: FormControl ;
+  @Input() clases!: string ;
   years: number[] = [];
 
   constructor() {}

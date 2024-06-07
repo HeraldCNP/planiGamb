@@ -22,8 +22,6 @@ export class LoaderDirective {
         this.enabled();
       }
     })
-
-    
   }
 
   ngAfterViewInit() {

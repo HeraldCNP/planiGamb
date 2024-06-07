@@ -6,7 +6,8 @@
         <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
         <span class="spacer"></span>
         <mat-dialog-actions>
-          <button mat-mini-fab matTooltip="Crear Nuevo" (click)="createProject()" color="primary" aria-label="Example mini fab with a heart icon">
+          <button mat-mini-fab matTooltip="Crear Nuevo" (click)="createProject()" color="primary"
+            aria-label="Example mini fab with a heart icon">
             <mat-icon>add</mat-icon>
           </button>
         </mat-dialog-actions>
@@ -22,10 +23,33 @@
       </mat-form-field>
       <mat-divider></mat-divider>
       <mat-card-content>
+        
         <div>
-          <table mat-table matSort [dataSource]="dataSource">
+          <table mat-table mat-table [dataSource]="dataSource" matSort>
             <!-- ['gestion', 'codigoSisin', 'codigoProyecto', 'nombreProyecto', 'detalle', 'costo', 'empresa', 'contactoEmpresa', 'supervisor', 'lugar', 'estante', 'fila', 'observaciones', 'fichaTecnica', 'documentos', 'itcp', 'fichaAmbiental', 'plano', 'documentosDigital', 'acciones']; -->
 
+            <ng-container matColumnDef="acciones">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 230px;">Acciones</th>
+              <td></td>
+              <td mat-cell *matCellDef="let row" style="width: 220px;">
+                <button class="iconBtn" (click)="verDetalle(row._id)" mat-icon-button color="accent"
+                  matTooltip="Ver Detalle" aria-label="Example icon-button with a heart icon">
+                  <mat-icon>preview</mat-icon>
+                </button>
+                <button class="iconBtn" (click)="addArchivo(row._id)" mat-icon-button color="primary"
+                  matTooltip="Añadir Archivo" aria-label="Example icon-button with a heart icon">
+                  <mat-icon>library_add</mat-icon>
+                </button>
+                <button class="iconBtn" (click)="editProject(row._id)" mat-icon-button color="primary"
+                  matTooltip="Editar" aria-label="Example icon-button with a heart icon">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button class="iconBtn" (click)="deleteProject(row._id)" mat-icon-button color="warn"
+                  matTooltip="Eliminar" aria-label="Example icon-button with a heart icon">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
 
             <ng-container matColumnDef="gestion">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Gestión</th>
@@ -62,15 +86,9 @@
               <td mat-cell *matCellDef="let row">{{ row.empresa }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="contactoEmpresa">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Contacto de Empresa</th>
-              <td mat-cell *matCellDef="let row">{{ row.contactoEmpresa }}</td>
-            </ng-container>
 
-            <ng-container matColumnDef="supervisor">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Supervisor</th>
-              <td mat-cell *matCellDef="let row">{{ row.supervisor }}</td>
-            </ng-container>
+
+
 
             <ng-container matColumnDef="lugar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Lugar</th>
@@ -87,75 +105,46 @@
               <td mat-cell *matCellDef="let row">{{ row.fila }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="observaciones">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Observaciones</th>
-              <td mat-cell *matCellDef="let row">{{ row.observaciones }}</td>
-            </ng-container>
 
             <ng-container matColumnDef="fichaTecnica">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Ficha Tecnica</th>
-              <td mat-cell *matCellDef="let row">{{ row.fichaTecnica }}</td>
+              <td mat-cell *matCellDef="let row">
+
+                <a *ngIf="row.fichaTecnica" href="{{ baseUrl }}/proyect/getFichaTecnica/{{ row.fichaTecnica }}"
+                  target="_blank">
+                  <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                    matTooltip="Descargar">
+                    <mat-icon>download</mat-icon>
+                  </button>
+                </a>
+              </td>
             </ng-container>
 
             <ng-container matColumnDef="documentos">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Documentos</th>
-              <td mat-cell *matCellDef="let row">{{ row.documentos }}</td>
-            </ng-container>
+              <td mat-cell *matCellDef="let row">
 
-            <ng-container matColumnDef="itcp">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>ITCP</th>
-              <td mat-cell *matCellDef="let row">{{ row.itcp }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="fichaAmbiental">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ficha Ambiental</th>
-              <td mat-cell *matCellDef="let row">{{ row.fichaAmbiental }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="plano">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Plano</th>
-              <td mat-cell *matCellDef="let row">{{ row.plano }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="documentosDigital">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Documentos en Digital</th>
-              <td mat-cell *matCellDef="let row">{{ row.documentosDigital }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="acciones">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 250px;">Acciones</th>
-              <td></td>
-              <td mat-cell *matCellDef="let row" style="width: 220px;">
-                <!-- <button class="iconBtn" (click)="listArchivo(row)" mat-icon-button color="accent" matTooltip="Ver Archivos"
-                    aria-label="Example icon-button with a heart icon">
-                    <mat-icon>preview</mat-icon>
+                <a *ngIf="row.documentos" href="{{ baseUrl }}/proyect/getDocumentos/{{ row.documentos }}"
+                  target="_blank">
+                  <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                    matTooltip="Descargar">
+                    <mat-icon>download</mat-icon>
                   </button>
-                  <button class="iconBtn" (click)="createArchivo(row)" mat-icon-button color="primary" matTooltip="Añadir Archivo"
-                    aria-label="Example icon-button with a heart icon">
-                    <mat-icon>library_add</mat-icon>
-                  </button>
-                  <button class="iconBtn" (click)="editCarpeta(row._id)" mat-icon-button color="primary" matTooltip="Editar"
-                    aria-label="Example icon-button with a heart icon">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button class="iconBtn" (click)="deleteCarpeta(row._id)" mat-icon-button color="warn" matTooltip="Eliminar"
-                    aria-label="Example icon-button with a heart icon"> 
-
-                    <mat-icon>delete</mat-icon>
-                  </button> -->
+                </a>
               </td>
             </ng-container>
- 
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumn"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumn"></tr>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
 
             <tr *matNoDataRow>
               <td class="mat-cell">"{{ termino.value }}" No existe</td>
             </tr>
           </table>
-          <mat-paginator [pageSizeOptions]="[10 ,25 , 50]" aria-label="Select Page of Users"></mat-paginator>
+          
+          <mat-paginator [pageSizeOptions]="[10, 20, 25]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
         </div>
       </mat-card-content>
     </mat-card>

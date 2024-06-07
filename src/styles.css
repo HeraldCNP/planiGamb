@@ -26,8 +26,16 @@ body {
     width: 100%;
 }
 
-.inline {
+.two-col {
     width: 50%;
+}
+
+.three-col {
+    width: 33.3%;
+}
+
+.m-three-col {
+    padding: 0px 10px 0px 10px
 }
 
 .right {

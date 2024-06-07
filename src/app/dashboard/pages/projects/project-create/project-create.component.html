@@ -18,12 +18,66 @@
           <input type="email" matInput placeholder="Correo Electronico" formControlName="email">
         </mat-form-field> -->
 
-              <app-select-year [control]="projectForm.get('gestion')"></app-select-year>
 
-              <mat-form-field class="full-width">
-                <mat-label>Código Sisin</mat-label>
-                <input matInput placeholder="Ej. ....." formControlName="codigoSisin" type="number">
+              <mat-form-field class="three-col">
+                <mat-label>Seleccione una Canton</mat-label>
+                <mat-select formControlName="canton" [value]="selectedCanton()"
+                  (selectionChange)="selectedCanton.set($event.value)">
+                  <mat-option *ngFor="let canton of cantones()" [value]="canton.canton">{{ canton.canton | titlecase
+                    }}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>calendar_month</mat-icon>
+                <mat-error *ngIf="form['canton'].hasError('required') && form['canton'].touched">
+                  La canton es obligatoria.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="three-col m-three-col" *ngIf="subcentrales().length > 0">
+                <mat-label>Seleccione una Sub Central</mat-label>
+                <mat-select formControlName="subcentralia" [value]="selectedSubcentral()"
+                  (selectionChange)="selectedSubcentral.set($event.value)">
+                  <mat-option *ngFor="let subcentral of subcentrales()" [value]="subcentral.subcentralia">{{
+                    subcentral.subcentralia | titlecase }}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>calendar_month</mat-icon>
+                <mat-error *ngIf="form['subcentralia'].hasError('required') && form['subcentralia'].touched">
+                  La subcentralia es obligatoria.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="three-col" *ngIf="comunidades().length > 0">
+                <mat-label>Seleccione una Comunidad</mat-label>
+                <mat-select formControlName="comunidad">
+                  <mat-option *ngFor="let comunidad of comunidades()" [value]="comunidad.comunidad">{{ comunidad.comunidad |
+                    titlecase }}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>calendar_month</mat-icon>
+                <mat-error *ngIf="form['comunidad'].hasError('required') && form['comunidad'].touched">
+                  La comunidad es obligatoria.
+                </mat-error>
+              </mat-form-field>
+
+
+
+
+              <app-select-year [control]="projectForm.get('gestion')" [clases]="'full-width'"></app-select-year>
+
+              <mat-form-field class="three-col">
+                <mat-label>Costo</mat-label>
+                <input matInput placeholder="Ej. ....." formControlName="costo" type="number">
                 <mat-icon matSuffix>123</mat-icon>
+                <mat-error *ngIf="form['costo'].hasError('required') && form['costo'].touched">
+                  El costo es obligatorio.
+                </mat-error>
+                <mat-error *ngIf="form['costo'].hasError('costo') && form['costo'].touched">
+                  El costo de ser valido.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="three-col m-three-col">
+                <mat-label>Código Sisin</mat-label>
+                <input matInput placeholder="Ej. ....." formControlName="codigoSisin" type="text">
+                <mat-icon matSuffix>edit_note</mat-icon>
                 <mat-error *ngIf="form['codigoSisin'].hasError('required') && form['codigoSisin'].touched">
                   El codigoSisin es obligatorio.
                 </mat-error>
@@ -32,7 +86,7 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="full-width">
+              <mat-form-field class="three-col">
                 <mat-label>Código del Proyecto</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="codigoProyecto" type="number">
                 <mat-icon matSuffix>123</mat-icon>
@@ -44,7 +98,8 @@
                 </mat-error>
               </mat-form-field>
 
-              
+
+
               <mat-form-field class="full-width">
                 <mat-label>Nombre del Proyecto</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="nombreProyecto" type="text">
@@ -59,8 +114,8 @@
 
               <mat-form-field class="full-width">
                 <mat-label>Detalle</mat-label>
-                <input matInput placeholder="Ej. ....." formControlName="detalle" type="text">
-                <mat-icon matSuffix>edit_note</mat-icon>
+                <textarea matInput placeholder="....." formControlName="detalle"></textarea>
+                <mat-icon matSuffix>post_add</mat-icon>
                 <mat-error *ngIf="form['detalle'].hasError('required') && form['detalle'].touched">
                   El detalle es obligatorio.
                 </mat-error>
@@ -69,19 +124,7 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="full-width">
-                <mat-label>Costo</mat-label>
-                <input matInput placeholder="Ej. ....." formControlName="costo" type="number">
-                <mat-icon matSuffix>123</mat-icon>
-                <mat-error *ngIf="form['costo'].hasError('required') && form['costo'].touched">
-                  El costo es obligatorio.
-                </mat-error>
-                <mat-error *ngIf="form['costo'].hasError('costo') && form['costo'].touched">
-                  El costo de ser valido.
-                </mat-error>
-              </mat-form-field>
-              
-              <mat-form-field class="full-width">
+              <mat-form-field class="three-col">
                 <mat-label>Empresa</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="empresa" type="text">
                 <mat-icon matSuffix>edit_note</mat-icon>
@@ -93,19 +136,20 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="full-width">
+              <mat-form-field class="three-col m-three-col">
                 <mat-label>Contacto de la Empresa</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="contactoEmpresa" type="text">
                 <mat-icon matSuffix>edit_note</mat-icon>
                 <mat-error *ngIf="form['contactoEmpresa'].hasError('required') && form['contactoEmpresa'].touched">
                   El contactoEmpresa es obligatorio.
                 </mat-error>
-                <mat-error *ngIf="form['contactoEmpresa'].hasError('contactoEmpresa') && form['contactoEmpresa'].touched">
+                <mat-error
+                  *ngIf="form['contactoEmpresa'].hasError('contactoEmpresa') && form['contactoEmpresa'].touched">
                   El contactoEmpresa de ser valido.
                 </mat-error>
               </mat-form-field>
-              
-              <mat-form-field class="full-width">
+
+              <mat-form-field class="three-col">
                 <mat-label>Supervisor</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="supervisor" type="text">
                 <mat-icon matSuffix>edit_note</mat-icon>
@@ -117,7 +161,7 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="full-width">
+              <mat-form-field class="three-col">
                 <mat-label>Lugar</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="lugar" type="text">
                 <mat-icon matSuffix>edit_note</mat-icon>
@@ -128,8 +172,8 @@
                   El lugar de ser valido.
                 </mat-error>
               </mat-form-field>
-              
-              <mat-form-field class="full-width">
+
+              <mat-form-field class="three-col m-three-col">
                 <mat-label>Estante</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="estante" type="number">
                 <mat-icon matSuffix>123</mat-icon>
@@ -141,8 +185,7 @@
                 </mat-error>
               </mat-form-field>
 
-              
-              <mat-form-field class="full-width">
+              <mat-form-field class="three-col">
                 <mat-label>Fila</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="fila" type="number">
                 <mat-icon matSuffix>123</mat-icon>
@@ -156,8 +199,8 @@
 
               <mat-form-field class="full-width">
                 <mat-label>Observaciones</mat-label>
-                <input matInput placeholder="Ej. ....." formControlName="observaciones" type="text">
-                <mat-icon matSuffix>edit_note</mat-icon>
+                <textarea matInput placeholder="....." formControlName="observaciones"></textarea>
+                <mat-icon matSuffix>post_add</mat-icon>
                 <mat-error *ngIf="form['observaciones'].hasError('required') && form['observaciones'].touched">
                   El observaciones es obligatorio.
                 </mat-error>
@@ -165,6 +208,18 @@
                   El observaciones de ser valido.
                 </mat-error>
               </mat-form-field>
+
+              <div class="mb-3">
+
+                <mat-slide-toggle formControlName="itcp" labelPosition="before" class="m-three-col"
+                  color="primary">ITCP</mat-slide-toggle>
+
+                <mat-slide-toggle formControlName="fichaAmbiental" labelPosition="before" class="m-three-col"
+                  color="primary">Ficha Ambiental</mat-slide-toggle>
+
+                <mat-slide-toggle formControlName="plano" labelPosition="before" class="m-three-col"
+                  color="primary">Plano</mat-slide-toggle>
+              </div>
 
 
               <!-- <mat-form-field class="inline">
@@ -201,10 +256,11 @@
 
               <mat-form-field class="full-width">
                 <input matInput [value]="'Seleccionar un archivo'" />
-                <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" />
+                <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" accept="application/pdf" />
                 <mat-icon matSuffix>upload_file</mat-icon>
               </mat-form-field>
-              <p *ngIf="uploadProgress">Progreso de la subida: {{uploadProgress}}%</p>
+              <p *ngIf="uploadProgress">Progreso: {{uploadProgress}}%</p>
+              <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
 
 
 

@@ -1,0 +1,181 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <mat-card>
+                <div class="row">
+                    <div class="col-md-10 offset-md-1">
+                        <mat-card-header>
+                            <mat-card-title> <span>{{ inputData.title }}</span></mat-card-title>
+                            <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+                            <span class="spacer"></span>
+
+
+                        </mat-card-header>
+                        <mat-divider></mat-divider>
+                        @if (project()) {
+                        <mat-card-content>
+                            <h2>Proyecto: {{ project().nombreProyecto | titlecase }}</h2>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Canton</span>
+                                        <span class="big-text">{{ project().canton | titlecase }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Subcentralia</span>
+                                        <span class="big-text">{{ project().subcentralia | titlecase }}</span> 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Comunidad</span>
+                                        <span class="big-text">{{ project().comunidad | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Gestión</span>
+                                        <span class="big-text">{{ project().gestion | titlecase }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Codigo de Proyecto</span>
+                                        <span class="big-text">{{ project().codigoProyecto | titlecase }}</span> 
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Codigo Sisin</span>
+                                        <span class="big-text">{{ project().codigoSisin | titlecase }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Costo</span>
+                                        <span class="big-text">{{ project().costo | currency : "USD" : "" }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <div class="text-container">
+                                        <span class="small-text">Detalle</span>
+                                        <span class="big-text">{{ project().detalle | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Empresa</span>
+                                        <span class="big-text">{{ project().empresa | titlecase }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Contacto</span>
+                                        <span class="big-text">{{ project().contactoEmpresa | titlecase }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Supervisor</span>
+                                        <span class="big-text">{{ project().supervisor | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Lugar</span>
+                                        <span class="big-text">{{ project().lugar | titlecase }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Estante</span>
+                                        <span class="big-text">{{ project().estante | titlecase }}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="text-container">
+                                        <span class="small-text">Fila</span>
+                                        <span class="big-text">{{ project().fila | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <div class="text-container">
+                                        <span class="small-text">Observaciones</span>
+                                        <span class="big-text">{{ project().observaciones | titlecase }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">ITCP</span>
+                                        @if(project().itcp) {
+                                            <mat-icon class="good">check_circle</mat-icon>                                        
+                                        }@else {
+                                            <mat-icon class="wrong">cancel</mat-icon> 
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Ficha Ambiental</span>
+                                        @if(project().fichaAmbiental) {
+                                            <mat-icon class="good">check_circle</mat-icon>                                        
+                                        }@else {
+                                            <mat-icon class="wrong">cancel</mat-icon> 
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Plano</span>
+                                        @if(project().plano) {
+                                            <mat-icon class="good">check_circle</mat-icon>                                        
+                                        }@else {
+                                            <mat-icon class="wrong">cancel</mat-icon> 
+                                        }
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="text-container">
+                                        <span class="small-text">Documentos en Digital</span>
+                                        @if(project().documentosDigital) {
+                                            <mat-icon class="good">check_circle</mat-icon>                                        
+                                        }@else {
+                                            <mat-icon class="wrong">cancel</mat-icon> 
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </mat-card-content>
+                        }
+                    </div>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+</div>

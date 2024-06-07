@@ -20,10 +20,10 @@ export class DashboardLayoutComponent {
   constructor() {
     this.sidebarItems = [
       { label: 'Proyectos', icon: 'storage', url: './projects' },
-      { label: 'Usuarios', icon: 'group', url: './users' },
-      { label: 'Tipos de Discapacidad', icon: 'accessible_forward', url: './tiposDiscapacidad' },
-      { label: 'Beneficiarios', icon: 'diversity_3', url: './beneficiaries' },
-      { label: 'Planillas', icon: 'format_indent_increase', url: './planillas' },
+      // { label: 'Usuarios', icon: 'group', url: './users' },
+      // { label: 'Tipos de Discapacidad', icon: 'accessible_forward', url: './tiposDiscapacidad' },
+      // { label: 'Beneficiarios', icon: 'diversity_3', url: './beneficiaries' },
+      // { label: 'Planillas', icon: 'format_indent_increase', url: './planillas' },
 
       // { label: 'listado', icon: 'label', url: './list' }
       // { label: 'listado', icon: 'label', url: './list' }

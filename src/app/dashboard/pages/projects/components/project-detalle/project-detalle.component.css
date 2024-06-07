@@ -1,0 +1,24 @@
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-items: start; /* Alinea horizontalmente en el centro */
+  }
+  
+  .small-text {
+    font-size: 0.8rem; /* Ajusta el tamaño según sea necesario */
+    color: #555;
+    margin-bottom: 5px; /* Espacio entre el texto pequeño y grande */
+  }
+  
+  .big-text {
+    font-size: 1rem; /* Ajusta el tamaño según sea necesario */
+    color: #000;
+  }
+
+  .good{
+    color: green;
+  }
+
+  .wrong{
+    color: red;
+  }

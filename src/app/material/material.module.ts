@@ -26,6 +26,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 @NgModule({
@@ -51,12 +52,13 @@ import { CommonModule } from '@angular/common';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatSnackBarModule,
     MatSortModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
-    CommonModule
+    CommonModule,
   ]
 })
 export class MaterialModule { }

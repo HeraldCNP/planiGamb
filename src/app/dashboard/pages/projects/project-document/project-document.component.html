@@ -1,0 +1,49 @@
+<div class="row px-2">
+    <div class="col-md-12">
+      <mat-card>
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <mat-card-header>
+              <mat-card-title> <span>Agregar Documento</span></mat-card-title>
+              <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+              <span class="spacer"></span>
+  
+  
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <form class="create-form" [formGroup]="documentForm">
+              <mat-card-content>
+                 
+                <mat-form-field class="full-width">
+                  <input matInput [value]="'Seleccionar un archivo'" />
+                  <input type="file" id="fileInput" (change)="selectFile($event)" formControlName="file" name="fileInput" accept=".zip,.rar" />
+                  <mat-icon matSuffix>upload_file</mat-icon>
+                </mat-form-field>
+                <p *ngIf="uploadProgress">Progreso: {{uploadProgress}}%</p>
+                <mat-progress-bar mode="determinate" [value]="uploadProgress"></mat-progress-bar>
+  
+              </mat-card-content>
+            </form>
+            <mat-card-actions align="end">
+              <button class="mx-2" mat-raised-button (click)="cancel()">Cancelar</button>
+              <button class="mx-2" (click)="onSubmit()" mat-raised-button color="primary"
+                [disabled]="documentForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+            </mat-card-actions>
+  
+          </div>
+        </div>
+      </mat-card>
+  
+  
+      {{documentForm.value | json}}
+  
+      <!-- <button (click)="saveCarpeta()" *ngIf="inputData.id === 0" mat-raised-button color="primary"
+          [disabled]="carpetaForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+        <button (click)="editCarpeta(inputData.id)" *ngIf="inputData.id !== 0" mat-raised-button color="primary"
+          [disabled]="carpetaForm.invalid"><mat-icon>save</mat-icon>Editar</button> -->
+  
+  
+  
+  
+    </div>
+  </div>
