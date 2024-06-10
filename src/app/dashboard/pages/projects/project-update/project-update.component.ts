@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectService } from '../../../services/project.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpEventType } from '@angular/common/http';
+import { Project } from '../../../interfaces/project';
 
 @Component({
   selector: 'app-project-update',
@@ -201,6 +202,69 @@ export class ProjectUpdateComponent implements OnInit {
     }
 
   }
+
+
+  // onSubmit(): void {
+  //   if (this.editForm.valid) {
+  //     const project: Project = {
+  //       canton: this.editForm.get('canton').value,
+  //       subcentralia: this.editForm.get('subcentralia').value,
+  //       comunidad: this.editForm.get('comunidad').value,
+  //       gestion: this.editForm.get('gestion').value,
+  //       codigoSisin: this.editForm.get('codigoSisin').value,
+  //       codigoProyecto: this.editForm.get('codigoProyecto').value,
+  //       nombreProyecto: this.editForm.get('nombreProyecto').value,
+  //       detalle: this.editForm.get('detalle').value,
+  //       costo: this.editForm.get('costo').value,
+  //       empresa: this.editForm.get('empresa').value,
+  //       contactoEmpresa: this.editForm.get('contactoEmpresa').value,
+  //       supervisor: this.editForm.get('supervisor').value,
+  //       lugar: this.editForm.get('lugar').value,
+  //       estante: this.editForm.get('estante').value,
+  //       fila: this.editForm.get('fila').value,
+  //       observaciones: this.editForm.get('observaciones').value,
+  //       fichaTecnica: '',  // Esto se maneja como archivo
+  //       itcp: this.editForm.get('itcp').value,
+  //       fichaAmbiental: this.editForm.get('fichaAmbiental').value,
+  //       plano: this.editForm.get('plano').value,
+  //       documentosDigital: false,  // Suponiendo que se establece en otro lugar
+  //       documentos: '',  // Suponiendo que se establece en otro lugar
+  //     };
+
+  //     const formData = this.convertProjectToFormData(project);
+
+  //     if (this.file) {
+  //       formData.append('fichaTecnica', this.file);
+  //     }
+
+  //     this.projectService.updateProject(formData, this.idProject).subscribe((event: any) => {
+  //       if (event.type === HttpEventType.UploadProgress) {
+  //         this.uploadProgress = Math.round(100 * event.loaded / event.total);
+  //       } else if (event.type === HttpEventType.Response) {
+  //         this.snackBar.open('Archivo PDF y otros campos editados correctamente', 'Cerrar', {
+  //           duration: 2000
+  //         });
+  //         this.router.navigate(['/dashboard/projects']);
+  //       }
+  //     });
+  //   } else {
+  //     console.log('Error en formulario');
+  //   }
+  // }
+
+  // private convertProjectToFormData(project: Project): FormData {
+  //   const formData = new FormData();
+  //   for (const key in project) {
+  //     if (project.hasOwnProperty(key)) {
+  //       let value = (project as any)[key];
+  //       if (typeof value === 'boolean') {
+  //         value = value.toString();
+  //       } 
+  //       formData.append(key, value);
+  //     }
+  //   }
+  //   return formData;
+  // }
 
   
 
