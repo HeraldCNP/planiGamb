@@ -13,15 +13,15 @@ export class SelectYearComponent implements OnInit {
 
   @Input() control!: FormControl ;
   @Input() clases!: string ;
-  years: number[] = [];
+  years: any[] = [];
 
   constructor() {}
 
   ngOnInit(): void {
-    this.generateYears(10); // Generar los últimos 5 años, puedes cambiar este valor según sea necesario
+    this.generateYears(25); // Generar los últimos 5 años, puedes cambiar este valor según sea necesario
   }
 
-  generateYears(n: number): void {
+  generateYears(n: any): void {
     const currentYear = new Date().getFullYear();
     this.years = Array.from({ length: n }, (v, i) => currentYear - i);
   }

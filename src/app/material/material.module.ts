@@ -27,6 +27,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -59,6 +60,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatToolbarModule,
     MatTooltipModule,
     CommonModule,
+    MatExpansionModule,
   ]
 })
 export class MaterialModule { }

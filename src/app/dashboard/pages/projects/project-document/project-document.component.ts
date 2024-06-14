@@ -5,11 +5,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { MaterialModule } from '../../../../material/material.module';
+import { LoaderDirective } from '../../../../directives/loader.directive';
 
 @Component({
   selector: 'app-project-document',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, FormsModule],
+  imports: [MaterialModule, ReactiveFormsModule, FormsModule, LoaderDirective],
   templateUrl: './project-document.component.html',
   styleUrl: './project-document.component.css'
 })
@@ -55,7 +56,7 @@ export class ProjectDocumentComponent {
       this.file = event.target.files[0];
 
       console.log(this.file);
-
+ 
     } else {
       console.log("Error al cargar el archivo");
     }

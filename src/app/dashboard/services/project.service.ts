@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpRequest } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
@@ -28,14 +28,43 @@ export class ProjectService {
     return headers;
   }
 
-  getProjects(): Observable<any> {
+  // getProjects(): Observable<any> {
+  //   const url = `${this.baseUrl}/proyect`;
+  //   const header = this.headers;
+  //   return this.http.get<any>(url, { headers: header });
+  // }
+
+
+  getProjects(params?: any): Observable<any> {
     const url = `${this.baseUrl}/proyect`;
     const header = this.headers;
-    return this.http.get<any>(url, { headers: header });
+    let httpParams = new HttpParams();
+    if (params) {
+      Object.keys(params).forEach(key => {
+        if (params[key]) {
+          httpParams = httpParams.set(key, params[key]);
+        }
+      });
+    }
+    return this.http.get<any>(url, { params: httpParams, headers: header });
   }
+
+
 
   getCantones(): Observable<any[]> {
     const url = `${this.baseUrl}/betanzos/canton`;
+    const header = this.headers;
+    return this.http.get<any[]>(url, { headers: header });
+  }
+
+  getSubcentralias(): Observable<any[]> {
+    const url = `${this.baseUrl}/betanzos/subcentral`;
+    const header = this.headers;
+    return this.http.get<any[]>(url, { headers: header });
+  }
+
+  getComunidades(): Observable<any[]> {
+    const url = `${this.baseUrl}/betanzos/comunidad`;
     const header = this.headers;
     return this.http.get<any[]>(url, { headers: header });
   }
@@ -44,7 +73,7 @@ export class ProjectService {
     const url = `${this.baseUrl}/proyect`;
     const header = this.headers;
 
-    
+
     const req = new HttpRequest('POST', url, data, {
       reportProgress: true,
       responseType: 'json',
@@ -81,10 +110,6 @@ export class ProjectService {
     const url = `${this.baseUrl}/proyect/${id}`;
     const header = this.headers;
 
-    for (const [key, value] of data.entries()) {
-      console.log(`${key}:`, value);
-    }
-    
     const req = new HttpRequest('PATCH', url, data, {
       reportProgress: true,
       responseType: 'json',

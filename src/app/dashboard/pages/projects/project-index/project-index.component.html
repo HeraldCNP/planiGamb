@@ -14,6 +14,85 @@
 
       </mat-card-header>
 
+      <mat-accordion class="example-headers-align">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Busqueda Especifica
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <form [formGroup]="searchForm">
+            <mat-form-field>
+              <mat-label>Canton</mat-label>
+              <mat-select formControlName="canton">
+                @for (canton of cantones(); track $index) {
+                  <mat-option [value]="canton.canton">{{ canton.canton | titlecase }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Subcentralia</mat-label>
+              <mat-select formControlName="subcentralia">
+                @for (subcentral of subcentralias(); track $index) {
+                  <mat-option [value]="subcentral.subcentralia">{{ subcentral.subcentralia | titlecase }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Comunidad</mat-label>
+              <mat-select formControlName="comunidad">
+                @for (comunidad of comunidades(); track $index) {
+                  <mat-option [value]="comunidad.comunidad">{{ comunidad.comunidad | titlecase }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+
+            <app-select-year [control]="searchForm.get('gestion')" [clases]="''"></app-select-year>
+
+            <mat-form-field>
+              <mat-label>Código Sisin</mat-label>
+              <input matInput type="text" formControlName="codigoSisin">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Código Proyecto</mat-label>
+              <input matInput type="text" min="1" formControlName="codigoProyecto">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Tipo de Estudio</mat-label>
+              <mat-select formControlName="tipoEstudio">
+                <mat-option [value]="'EDTP'">{{ 'EDTP' }}</mat-option>
+                <mat-option [value]="'ITCP'">{{ 'ITCP' }}</mat-option>
+                <mat-option [value]="'PERFIL'">{{ 'PERFIL' }}</mat-option>
+                <mat-option [value]="'TESA'">{{ 'TESA' }}</mat-option>
+                <mat-option [value]="'EI'">{{ 'EI' }}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Nombre de Proyecto</mat-label>
+              <input matInput type="text" formControlName="nombreProyecto">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Detalle</mat-label>
+              <input matInput type="text" formControlName="detalle">
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>Empresa</mat-label>
+              <input matInput type="text" formControlName="empresa">
+            </mat-form-field>
+
+            <button class="mx-2" appLoader mat-raised-button color="primary" (click)="onSearch()">Buscar</button>
+          </form>
+          {{ searchForm.value | json }}
+        </mat-expansion-panel>
+      </mat-accordion>
+
       <mat-divider></mat-divider>
 
       <mat-form-field>
@@ -21,11 +100,12 @@
         <input matInput placeholder="Buscar" search (keyup)="applyFilter($event)" #termino>
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
-      <mat-divider></mat-divider>
+
+
       <mat-card-content>
-        
+
         <div>
-          <table mat-table mat-table [dataSource]="dataSource" matSort>
+          <table mat-table mat-table [dataSource]="dataSource" matSort class="small-text-table">
             <!-- ['gestion', 'codigoSisin', 'codigoProyecto', 'nombreProyecto', 'detalle', 'costo', 'empresa', 'contactoEmpresa', 'supervisor', 'lugar', 'estante', 'fila', 'observaciones', 'fichaTecnica', 'documentos', 'itcp', 'fichaAmbiental', 'plano', 'documentosDigital', 'acciones']; -->
 
             <ng-container matColumnDef="acciones">
@@ -66,7 +146,7 @@
               <td mat-cell *matCellDef="let row">{{ row.codigoProyecto }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="nombreProyecto">
+            <ng-container matColumnDef="nombreProyecto" width="350px">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre del Proyecto</th>
               <td mat-cell *matCellDef="let row">{{ row.nombreProyecto }}</td>
             </ng-container>
@@ -76,19 +156,10 @@
               <td mat-cell *matCellDef="let row">{{ row.detalle }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="costo">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Costo</th>
-              <td mat-cell *matCellDef="let row">{{ row.costo }}</td>
+            <ng-container matColumnDef="tipoEstudio">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Estudio</th>
+              <td mat-cell *matCellDef="let row">{{ row.tipoEstudio }}</td>
             </ng-container>
-
-            <ng-container matColumnDef="empresa">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</th>
-              <td mat-cell *matCellDef="let row">{{ row.empresa }}</td>
-            </ng-container>
-
-
-
-
 
             <ng-container matColumnDef="lugar">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Lugar</th>
@@ -143,8 +214,9 @@
               <td class="mat-cell">"{{ termino.value }}" No existe</td>
             </tr>
           </table>
-          
-          <mat-paginator [pageSizeOptions]="[10, 20, 25]" showFirstLastButtons aria-label="Select page of periodic elements"></mat-paginator>
+
+          <mat-paginator [pageSizeOptions]="[10, 20, 25]" showFirstLastButtons
+            aria-label="Select page of periodic elements"></mat-paginator>
         </div>
       </mat-card-content>
     </mat-card>

@@ -20,7 +20,7 @@
 
 
               <mat-form-field class="three-col">
-                <mat-label>Seleccione una Canton</mat-label>
+                <mat-label>Seleccione un Canton</mat-label>
                 <mat-select formControlName="canton" [value]="selectedCanton()"
                   (selectionChange)="selectedCanton.set($event.value)">
                   <mat-option *ngFor="let canton of cantones()" [value]="canton.canton">{{ canton.canton | titlecase
@@ -111,6 +111,35 @@
                   El nombreProyecto de ser valido.
                 </mat-error>
               </mat-form-field>
+
+              <mat-form-field class="two-col">
+                <mat-label>Seleccione un Tipo de Estudio</mat-label>
+                <mat-select formControlName="tipoEstudio">
+                  <mat-option [value]="'EDTP'">{{ 'EDTP' }}</mat-option>
+                  <mat-option [value]="'ITCP'">{{ 'ITCP' }}</mat-option>
+                  <mat-option [value]="'PERFIL'">{{ 'PERFIL' }}</mat-option>
+                  <mat-option [value]="'TESA'">{{ 'TESA' }}</mat-option>
+                  <mat-option [value]="'EI'">{{ 'EI' }}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>calendar_month</mat-icon>
+                <mat-error *ngIf="form['tipoEstudio'].hasError('required') && form['tipoEstudio'].touched">
+                  La tipoEstudio es obligatoria.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="two-col right">
+                <mat-label>Plazo (Días Calendario)</mat-label>
+                <input matInput placeholder="Ej. ....." formControlName="plazo" type="number">
+                <mat-icon matSuffix>123</mat-icon>
+                <mat-error *ngIf="form['plazo'].hasError('required') && form['plazo'].touched">
+                  El plazo es obligatorio.
+                </mat-error>
+                <mat-error *ngIf="form['plazo'].hasError('plazo') && form['plazo'].touched">
+                  El plazo de ser valido.
+                </mat-error>
+              </mat-form-field>
+
+
 
               <mat-form-field class="full-width">
                 <mat-label>Detalle</mat-label>
@@ -269,9 +298,10 @@
           </form>
           <mat-card-actions align="end">
             <button class="mx-2" mat-raised-button (click)="cancel()">Cancelar</button>
-            <button class="mx-2" (click)="onSubmit()" mat-raised-button color="primary"
-              [disabled]="projectForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+            <button class="mx-2" appLoader (click)="onSubmit()" mat-raised-button color="primary"
+              [disabled]="projectForm.invalid">Registrar</button>
           </mat-card-actions>
+
 
         </div>
       </div>

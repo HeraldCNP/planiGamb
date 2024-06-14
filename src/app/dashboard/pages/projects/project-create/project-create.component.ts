@@ -60,6 +60,8 @@ export class ProjectCreateComponent {
       codigoSisin: [''],
       codigoProyecto: ['', [Validators.required]],
       nombreProyecto: ['', [Validators.required]],
+      tipoEstudio: ['', [Validators.required]],
+      plazo: ['', [Validators.required]],
       detalle: ['', [Validators.required]],
       costo: [''],
       empresa: [''],
@@ -125,6 +127,8 @@ export class ProjectCreateComponent {
       formData.append('codigoSisin', this.projectForm.get('codigoSisin').value);
       formData.append('codigoProyecto', this.projectForm.get('codigoProyecto').value);
       formData.append('nombreProyecto', this.projectForm.get('nombreProyecto').value);
+      formData.append('tipoEstudio', this.projectForm.get('tipoEstudio').value);
+      formData.append('plazo', this.projectForm.get('plazo').value);
       formData.append('detalle', this.projectForm.get('detalle').value);
       formData.append('costo', this.projectForm.get('costo').value);
       formData.append('empresa', this.projectForm.get('empresa').value);

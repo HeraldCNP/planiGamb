@@ -131,7 +131,7 @@
                                 <div class="col-md-3">
                                     <div class="text-container">
                                         <span class="small-text">ITCP</span>
-                                        @if(project().itcp) {
+                                        @if(project().itcp === 'true') {
                                             <mat-icon class="good">check_circle</mat-icon>                                        
                                         }@else {
                                             <mat-icon class="wrong">cancel</mat-icon> 
@@ -141,7 +141,7 @@
                                 <div class="col-md-3">
                                     <div class="text-container">
                                         <span class="small-text">Ficha Ambiental</span>
-                                        @if(project().fichaAmbiental) {
+                                        @if(project().fichaAmbiental === 'true') {
                                             <mat-icon class="good">check_circle</mat-icon>                                        
                                         }@else {
                                             <mat-icon class="wrong">cancel</mat-icon> 
@@ -151,7 +151,7 @@
                                 <div class="col-md-3">
                                     <div class="text-container">
                                         <span class="small-text">Plano</span>
-                                        @if(project().plano) {
+                                        @if(project().plano === 'true') {
                                             <mat-icon class="good">check_circle</mat-icon>                                        
                                         }@else {
                                             <mat-icon class="wrong">cancel</mat-icon> 
@@ -161,7 +161,7 @@
                                 <div class="col-md-3">
                                     <div class="text-container">
                                         <span class="small-text">Documentos en Digital</span>
-                                        @if(project().documentosDigital) {
+                                        @if(project().documentosDigital === 'true') {
                                             <mat-icon class="good">check_circle</mat-icon>                                        
                                         }@else {
                                             <mat-icon class="wrong">cancel</mat-icon> 

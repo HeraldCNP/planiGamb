@@ -1,0 +1,41 @@
+.small-input {
+    width: 150px;
+    /* Ajusta el ancho según tus necesidades */
+}
+
+.small-input .mat-mdc-form-field-infix {
+    padding: 0 2px;
+    /* Ajusta el padding según tus necesidades */
+}
+
+
+.small-input .mat-input-element {
+    font-size: 5px;
+    /* Ajusta el tamaño de la fuente según tus necesidades */
+    height: 1em;
+    line-height: 1em;
+}
+
+.small-input .mat-form-field-label {
+    font-size: 5px;
+    /* Ajusta el tamaño de la fuente del label */
+}
+
+.small-input .mat-form-field-outline-start,
+.small-input .mat-form-field-outline-end,
+.small-input .mat-form-field-outline-gap {
+    top: -1px;
+}
+
+
+/* Clase personalizada para reducir el tamaño del texto en mat-table */
+.small-text-table {
+    font-size: 0.75rem !important;
+    /* Ajusta el tamaño del texto según tus necesidades */
+}
+
+.small-text-table .mat-header-cell,
+.small-text-table .mat-mdc-cell {
+    font-size: 0.75rem !important;
+    /* Ajusta el tamaño del texto para las celdas */
+}
