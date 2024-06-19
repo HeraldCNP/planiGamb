@@ -51,7 +51,7 @@ export class ProjectIndexComponent implements OnInit {
   private router = inject(Router);
   private _snackBar = inject(MatSnackBar)
 
-  displayedColumns: string[] = ['acciones', 'gestion', 'codigoSisin', 'codigoProyecto', 'nombreProyecto', 'detalle', 'tipoEstudio', 'lugar', 'estante', 'fila', 'fichaTecnica', 'documentos'];
+  displayedColumns: string[] = ['acciones', 'programa', 'nombreProyecto', 'tipoProyecto', 'estado', 'documentos'];
   dataSource = new MatTableDataSource<any>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -146,6 +146,10 @@ export class ProjectIndexComponent implements OnInit {
   onSearch(): void {
     // console.log(this.searchForm.value);
     this.loadProjects(this.searchForm.value);
+  }
+
+  reset(){
+    this.searchForm.reset();
   }
 
   applyFilter(event: Event) {

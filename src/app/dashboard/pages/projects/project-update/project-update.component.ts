@@ -23,7 +23,7 @@ export class ProjectUpdateComponent implements OnInit {
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
-  
+
   editForm: any;
 
   file: File = new File([''], '');
@@ -32,7 +32,7 @@ export class ProjectUpdateComponent implements OnInit {
   loading = signal<boolean>(false);
   error = signal<string | null>(null);
   idProject: any;
-  project:any;
+  project: any;
 
   cantones = signal<any[]>([]);
   selectedCanton = signal<string | null>(null);
@@ -40,16 +40,17 @@ export class ProjectUpdateComponent implements OnInit {
     const cantonId = this.selectedCanton();
     const canton = this.cantones().find(c => c.canton === cantonId);
     console.log(canton);
-    
+
     return canton ? canton.subcentralias : [];
   });
-  
+  programas = signal<any[]>([]);
+
   selectedSubcentral = signal<string | null>(null);
   comunidades = computed(() => {
     const subcentralId = this.selectedSubcentral();
     console.log(subcentralId);
-    
-    const subcentral = this.subcentrales().find((s:any) => s.subcentralia === subcentralId);
+
+    const subcentral = this.subcentrales().find((s: any) => s.subcentralia === subcentralId);
     return subcentral ? subcentral.comunidades : [];
   });
 
@@ -66,7 +67,9 @@ export class ProjectUpdateComponent implements OnInit {
           comunidad: this.project.comunidad,
           gestion: this.project.gestion,
           codigoSisin: this.project.codigoSisin,
-          codigoProyecto: this.project.codigoProyecto,
+          programa: this.project.programa ? this.project.programa._id : '',
+          estado: this.project.estado,
+          tipoProyecto: this.project.tipoProyecto,
           nombreProyecto: this.project.nombreProyecto,
           tipoEstudio: this.project.tipoEstudio,
           plazo: this.project.plazo,
@@ -97,7 +100,9 @@ export class ProjectUpdateComponent implements OnInit {
       comunidad: ['', Validators.required],
       gestion: ['', Validators.required],
       codigoSisin: [''],
-      codigoProyecto: ['', [Validators.required]],
+      programa: ['', [Validators.required]],
+      estado: ['',],
+      tipoProyecto: ['', [Validators.required]],
       nombreProyecto: ['', [Validators.required]],
       tipoEstudio: ['', [Validators.required]],
       plazo: ['', [Validators.required]],
@@ -113,11 +118,13 @@ export class ProjectUpdateComponent implements OnInit {
       fichaTecnica: [''],
       itcp: [''],
       fichaAmbiental: [''],
-      plano: [''],    })
+      plano: [''],
+    })
   }
 
   ngOnInit(): void {
     this.getCantones();
+    this.getProgramas();
   }
 
 
@@ -130,7 +137,7 @@ export class ProjectUpdateComponent implements OnInit {
         this.cantones.set(response);
         this.loading.set(false);
         console.log(response);
-        
+
       },
       error: (err) => {
         this.error.set('Error fetching data');
@@ -151,8 +158,21 @@ export class ProjectUpdateComponent implements OnInit {
     }
   }
 
-  cancel(){
+  getProgramas(): void {
+    this.error.set(null);
+    this.projectService.getProgramas().subscribe({
+      next: (response) => {
+        this.programas.set(response);
+        console.log('programas', response);
+      },
+      error: (err) => {
+        this.error.set('Error fetching data');
+      }
+    });
+  }
 
+  cancel() {
+    this.router.navigate(['/dashboard/projects']);
   }
 
 
@@ -170,7 +190,9 @@ export class ProjectUpdateComponent implements OnInit {
       formData.append('comunidad', this.editForm.get('comunidad').value ? this.editForm.get('comunidad').value : '');
       formData.append('gestion', this.editForm.get('gestion').value ? this.editForm.get('gestion').value : '');
       formData.append('codigoSisin', this.editForm.get('codigoSisin').value ? this.editForm.get('codigoSisin').value : '');
-      formData.append('codigoProyecto', this.editForm.get('codigoProyecto').value ? this.editForm.get('codigoProyecto').value : '');
+      formData.append('programa', this.editForm.get('programa').value ? this.editForm.get('programa').value : '');
+      formData.append('estado', this.editForm.get('estado').value ? this.editForm.get('estado').value : '');
+      formData.append('tipoProyecto', this.editForm.get('tipoProyecto').value ? this.editForm.get('tipoProyecto').value : '');
       formData.append('nombreProyecto', this.editForm.get('nombreProyecto').value ? this.editForm.get('nombreProyecto').value : '');
       formData.append('tipoEstudio', this.editForm.get('tipoEstudio').value ? this.editForm.get('tipoEstudio').value : '');
       formData.append('plazo', this.editForm.get('plazo').value ? this.editForm.get('plazo').value : 0);
@@ -185,10 +207,10 @@ export class ProjectUpdateComponent implements OnInit {
       formData.append('observaciones', this.editForm.get('observaciones').value ? this.editForm.get('observaciones').value : '');
       formData.append('itcp', this.editForm.get('itcp').value ? this.editForm.get('itcp').value : 'false');
       formData.append('fichaAmbiental', this.editForm.get('fichaAmbiental').value ? this.editForm.get('fichaAmbiental').value : 'false');
-      formData.append('plano', this.editForm.get('plano').value ? this.editForm.get('plano').value : 'false');       
+      formData.append('plano', this.editForm.get('plano').value ? this.editForm.get('plano').value : 'false');
 
       this.projectService.updateProject(formData, this.idProject).subscribe((event: any) => {
-        if (event.type === HttpEventType .UploadProgress) {
+        if (event.type === HttpEventType.UploadProgress) {
           this.uploadProgress = Math.round(100 * event.loaded / event.total);
 
         } else if (event.type === HttpEventType.Response) {
@@ -268,7 +290,7 @@ export class ProjectUpdateComponent implements OnInit {
   //   return formData;
   // }
 
-  
+
 
 
 }

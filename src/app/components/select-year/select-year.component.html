@@ -1,5 +1,5 @@
 <mat-form-field [class]="clases">
-  <mat-label>Seleccione la Gestión</mat-label>
+  <mat-label>{{ texto }}</mat-label>
   <mat-select [formControl]="control">
     <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
   </mat-select>

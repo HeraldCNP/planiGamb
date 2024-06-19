@@ -61,7 +61,7 @@
 
 
 
-              <app-select-year [control]="editForm.get('gestion')" [clases]="'full-width'"></app-select-year>
+              <app-select-year [control]="editForm.get('gestion')" [clases]="'full-width'" [texto]="'Gestión'"></app-select-year>
 
               <mat-form-field class="three-col">
                 <mat-label>Costo</mat-label>
@@ -88,14 +88,15 @@
               </mat-form-field>
 
               <mat-form-field class="three-col">
-                <mat-label>Código del Proyecto</mat-label>
-                <input matInput placeholder="Ej. ....." formControlName="codigoProyecto" type="number">
-                <mat-icon matSuffix>123</mat-icon>
-                <mat-error *ngIf="form['codigoProyecto'].hasError('required') && form['codigoProyecto'].touched">
-                  El codigoProyecto es obligatorio.
-                </mat-error>
-                <mat-error *ngIf="form['codigoProyecto'].hasError('codigoProyecto') && form['codigoProyecto'].touched">
-                  El codigoProyecto de ser valido.
+                <mat-label>Seleccione un Programa</mat-label>
+                <mat-select formControlName="programa">
+                  <mat-option *ngFor="let programa of programas()" [value]="programa._id">{{
+                    programa.denominacion |
+                    titlecase }}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>calendar_month</mat-icon>
+                <mat-error *ngIf="form['programa'].hasError('required') && form['programa'].touched">
+                  El programa es obligatorio.
                 </mat-error>
               </mat-form-field>
 
@@ -113,7 +114,22 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="two-col">
+              <mat-form-field class="three-col">
+                <mat-label>Seleccione un Tipo de Proyecto</mat-label>
+                <mat-select formControlName="tipoProyecto">
+                  <mat-option [value]="'PDEP'">{{ 'Desarrollo Empresarial Productivo' }}</mat-option>
+                  <mat-option [value]="'PADP'">{{ 'Apoyo al Desarrollo Productivo' }}</mat-option>
+                  <mat-option [value]="'PDS'">{{ 'Desarrollo Social' }}</mat-option>
+                  <mat-option [value]="'PFI'">{{ 'Fortalecimiento Institucional' }}</mat-option>
+                  <mat-option [value]="'PIDT'">{{ 'Investigación y Desarrollo Tecnológico' }}</mat-option>
+                </mat-select>
+                <mat-icon matSuffix>calendar_month</mat-icon>
+                <mat-error *ngIf="form['tipoProyecto'].hasError('required') && form['tipoProyecto'].touched">
+                  La tipoProyecto es obligatoria.
+                </mat-error>
+              </mat-form-field>
+
+              <mat-form-field class="three-col m-three-col">
                 <mat-label>Seleccione un Tipo de Estudio</mat-label>
                 <mat-select formControlName="tipoEstudio">
                   <mat-option [value]="'EDTP'">{{ 'EDTP' }}</mat-option>
@@ -128,7 +144,7 @@
                 </mat-error>
               </mat-form-field>
 
-              <mat-form-field class="two-col right">
+              <mat-form-field class="three-col">
                 <mat-label>Plazo (Días Calendario)</mat-label>
                 <input matInput placeholder="Ej. ....." formControlName="plazo" type="number">
                 <mat-icon matSuffix>123</mat-icon>
@@ -239,6 +255,9 @@
               </mat-form-field>
 
               <div class="mb-3">
+
+                <mat-slide-toggle formControlName="estado" labelPosition="before" class="m-three-col"
+                color="primary">ESTADO</mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="itcp" labelPosition="before" class="m-three-col"
                   color="primary" >ITCP</mat-slide-toggle>

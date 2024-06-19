@@ -22,46 +22,46 @@
             </mat-panel-title>
           </mat-expansion-panel-header>
           <form [formGroup]="searchForm">
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Canton</mat-label>
               <mat-select formControlName="canton">
                 @for (canton of cantones(); track $index) {
-                  <mat-option [value]="canton.canton">{{ canton.canton | titlecase }}</mat-option>
+                <mat-option [value]="canton.canton">{{ canton.canton | titlecase }}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Subcentralia</mat-label>
               <mat-select formControlName="subcentralia">
                 @for (subcentral of subcentralias(); track $index) {
-                  <mat-option [value]="subcentral.subcentralia">{{ subcentral.subcentralia | titlecase }}</mat-option>
+                <mat-option [value]="subcentral.subcentralia">{{ subcentral.subcentralia | titlecase }}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Comunidad</mat-label>
               <mat-select formControlName="comunidad">
                 @for (comunidad of comunidades(); track $index) {
-                  <mat-option [value]="comunidad.comunidad">{{ comunidad.comunidad | titlecase }}</mat-option>
+                <mat-option [value]="comunidad.comunidad">{{ comunidad.comunidad | titlecase }}</mat-option>
                 }
               </mat-select>
             </mat-form-field>
 
-            <app-select-year [control]="searchForm.get('gestion')" [clases]="''"></app-select-year>
+            <app-select-year [control]="searchForm.get('gestion')" [clases]="'small-input'" [texto]="'Gestión'"></app-select-year>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Código Sisin</mat-label>
               <input matInput type="text" formControlName="codigoSisin">
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Código Proyecto</mat-label>
               <input matInput type="text" min="1" formControlName="codigoProyecto">
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Tipo de Estudio</mat-label>
               <mat-select formControlName="tipoEstudio">
                 <mat-option [value]="'EDTP'">{{ 'EDTP' }}</mat-option>
@@ -72,22 +72,23 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Nombre de Proyecto</mat-label>
               <input matInput type="text" formControlName="nombreProyecto">
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Detalle</mat-label>
               <input matInput type="text" formControlName="detalle">
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field class="small-input">
               <mat-label>Empresa</mat-label>
               <input matInput type="text" formControlName="empresa">
             </mat-form-field>
 
             <button class="mx-2" appLoader mat-raised-button color="primary" (click)="onSearch()">Buscar</button>
+            <button class="mx-2" appLoader mat-raised-button (click)="reset()">Borrar</button>
           </form>
           {{ searchForm.value | json }}
         </mat-expansion-panel>
@@ -106,7 +107,6 @@
 
         <div>
           <table mat-table mat-table [dataSource]="dataSource" matSort class="small-text-table">
-            <!-- ['gestion', 'codigoSisin', 'codigoProyecto', 'nombreProyecto', 'detalle', 'costo', 'empresa', 'contactoEmpresa', 'supervisor', 'lugar', 'estante', 'fila', 'observaciones', 'fichaTecnica', 'documentos', 'itcp', 'fichaAmbiental', 'plano', 'documentosDigital', 'acciones']; -->
 
             <ng-container matColumnDef="acciones">
               <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 230px;">Acciones</th>
@@ -130,20 +130,11 @@
                 </button>
               </td>
             </ng-container>
+            <!-- ['acciones', 'programa', 'nombreProyecto', 'tipoProyecto', 'estado', 'documentos']; -->
 
-            <ng-container matColumnDef="gestion">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Gestión</th>
-              <td mat-cell *matCellDef="let row">{{ row.gestion }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="codigoSisin">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Código Sisin</th>
-              <td mat-cell *matCellDef="let row">{{ row.codigoSisin }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="codigoProyecto">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Código de Proyecto</th>
-              <td mat-cell *matCellDef="let row">{{ row.codigoProyecto }}</td>
+            <ng-container matColumnDef="programa">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Programa</th>
+              <td mat-cell *matCellDef="let row">{{ row.programa ? row.programa.codigo : '-' }}</td>
             </ng-container>
 
             <ng-container matColumnDef="nombreProyecto" width="350px">
@@ -151,49 +142,34 @@
               <td mat-cell *matCellDef="let row">{{ row.nombreProyecto }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="detalle">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Detalle</th>
-              <td mat-cell *matCellDef="let row">{{ row.detalle }}</td>
+            <ng-container matColumnDef="tipoProyecto">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Proyecto</th>
+              <td mat-cell *matCellDef="let row">{{ row.tipoProyecto }}</td>
             </ng-container>
 
-            <ng-container matColumnDef="tipoEstudio">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Estudio</th>
-              <td mat-cell *matCellDef="let row">{{ row.tipoEstudio }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="lugar">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Lugar</th>
-              <td mat-cell *matCellDef="let row">{{ row.lugar }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="estante">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Estante</th>
-              <td mat-cell *matCellDef="let row">{{ row.estante }}</td>
-            </ng-container>
-
-            <ng-container matColumnDef="fila">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Fila</th>
-              <td mat-cell *matCellDef="let row">{{ row.fila }}</td>
-            </ng-container>
-
-
-            <ng-container matColumnDef="fichaTecnica">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header>Ficha Tecnica</th>
+            <ng-container matColumnDef="estado">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+              
               <td mat-cell *matCellDef="let row">
-
-                <a *ngIf="row.fichaTecnica" href="{{ baseUrl }}/proyect/getFichaTecnica/{{ row.fichaTecnica }}"
-                  target="_blank">
-                  <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
-                    matTooltip="Descargar">
-                    <mat-icon>download</mat-icon>
-                  </button>
-                </a>
+                @if (row.estado == 'true') {
+                  <span class="badge text-bg-success">Ejecutado</span>
+                }@else{
+                  <span class="badge text-bg-danger">No Ejecutado</span>
+                }
               </td>
             </ng-container>
 
             <ng-container matColumnDef="documentos">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Documentos</th>
               <td mat-cell *matCellDef="let row">
+
+                <a *ngIf="row.fichaTecnica" href="{{ baseUrl }}/proyect/getFichaTecnica/{{ row.fichaTecnica }}"
+                  target="_blank">
+                  <button mat-icon-button aria-label="Example icon button with a vertical three dot icon"
+                    matTooltip="Descargar" color="warn">
+                    <mat-icon>sim_card_download</mat-icon>
+                  </button>
+                </a>
 
                 <a *ngIf="row.documentos" href="{{ baseUrl }}/proyect/getDocumentos/{{ row.documentos }}"
                   target="_blank">
@@ -205,10 +181,8 @@
               </td>
             </ng-container>
 
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
 
             <tr *matNoDataRow>
               <td class="mat-cell">"{{ termino.value }}" No existe</td>

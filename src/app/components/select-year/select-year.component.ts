@@ -13,6 +13,7 @@ export class SelectYearComponent implements OnInit {
 
   @Input() control!: FormControl ;
   @Input() clases!: string ;
+  @Input() texto!: string ;
   years: any[] = [];
 
   constructor() {}

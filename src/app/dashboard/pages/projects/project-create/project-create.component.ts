@@ -19,10 +19,10 @@ export class ProjectCreateComponent {
 
   private projectService = inject(ProjectService);
   private fb = inject(FormBuilder);
-  private snackBar =inject(MatSnackBar);
-  private router =inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private router = inject(Router);
 
-  projectForm:  any;
+  projectForm: any;
 
   file: File = new File([''], '');
   uploadProgress: number = 0;
@@ -31,23 +31,26 @@ export class ProjectCreateComponent {
   error = signal<string | null>(null);
 
   cantones = signal<any[]>([]);
+  
   selectedCanton = signal<string | null>(null);
   subcentrales = computed(() => {
     const cantonId = this.selectedCanton();
     const canton = this.cantones().find(c => c.canton === cantonId);
     console.log(canton);
-    
+
     return canton ? canton.subcentralias : [];
   });
-  
+
   selectedSubcentral = signal<string | null>(null);
   comunidades = computed(() => {
     const subcentralId = this.selectedSubcentral();
     console.log(subcentralId);
-    
-    const subcentral = this.subcentrales().find((s:any) => s.subcentralia === subcentralId);
+
+    const subcentral = this.subcentrales().find((s: any) => s.subcentralia === subcentralId);
     return subcentral ? subcentral.comunidades : [];
   });
+
+  programas = signal<any[]>([]);
 
 
 
@@ -58,7 +61,9 @@ export class ProjectCreateComponent {
       comunidad: ['', Validators.required],
       gestion: ['', Validators.required],
       codigoSisin: [''],
-      codigoProyecto: ['', [Validators.required]],
+      programa: ['', Validators.required],
+      estado: [''],
+      tipoProyecto: ['', Validators.required],
       nombreProyecto: ['', [Validators.required]],
       tipoEstudio: ['', [Validators.required]],
       plazo: ['', [Validators.required]],
@@ -80,10 +85,11 @@ export class ProjectCreateComponent {
 
   ngOnInit(): void {
     this.getCantones();
+    this.getProgramas();
   }
 
 
-  get form(){
+  get form() {
     return this.projectForm.controls;
   }
 
@@ -96,7 +102,7 @@ export class ProjectCreateComponent {
         this.cantones.set(response);
         this.loading.set(false);
         console.log(response);
-        
+
       },
       error: (err) => {
         this.error.set('Error fetching data');
@@ -105,8 +111,21 @@ export class ProjectCreateComponent {
     });
   }
 
+  getProgramas(): void {
+    this.error.set(null);
+    this.projectService.getProgramas().subscribe({
+      next: (response) => {
+        this.programas.set(response);
+        console.log('programas', response);
+      },
+      error: (err) => {
+        this.error.set('Error fetching data');
+      }
+    });
+  }
 
-  cancel() {  
+
+  cancel() {
     this.router.navigate(['/dashboard/projects']);
   }
 
@@ -115,17 +134,18 @@ export class ProjectCreateComponent {
     if (this.projectForm.valid) {
       const formData = new FormData();
 
-      if(this.file){
+      if (this.file) {
         formData.append('fichaTecnica', this.file);
       }
-
+      
       // Agregar otros campos al FormData aquí
       formData.append('canton', this.projectForm.get('canton').value);
       formData.append('subcentralia', this.projectForm.get('subcentralia').value);
       formData.append('comunidad', this.projectForm.get('comunidad').value);
       formData.append('gestion', this.projectForm.get('gestion').value);
       formData.append('codigoSisin', this.projectForm.get('codigoSisin').value);
-      formData.append('codigoProyecto', this.projectForm.get('codigoProyecto').value);
+      formData.append('programa', this.projectForm.get('programa').value);
+      formData.append('tipoProyecto', this.projectForm.get('tipoProyecto').value);
       formData.append('nombreProyecto', this.projectForm.get('nombreProyecto').value);
       formData.append('tipoEstudio', this.projectForm.get('tipoEstudio').value);
       formData.append('plazo', this.projectForm.get('plazo').value);
@@ -138,13 +158,11 @@ export class ProjectCreateComponent {
       formData.append('estante', this.projectForm.get('estante').value);
       formData.append('fila', this.projectForm.get('fila').value);
       formData.append('observaciones', this.projectForm.get('observaciones').value);
-      formData.append('fichaTecnica', this.projectForm.get('fichaTecnica').value);
       formData.append('itcp', this.projectForm.get('itcp').value);
       formData.append('fichaAmbiental', this.projectForm.get('fichaAmbiental').value);
       formData.append('plano', this.projectForm.get('plano').value);
 
-
-      this.projectService.createProject(formData).subscribe((event:any) => {
+      this.projectService.createProject(formData).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
           this.uploadProgress = Math.round(100 * event.loaded / event.total);
 
@@ -156,7 +174,7 @@ export class ProjectCreateComponent {
         }
       });
     }
-    else{
+    else {
       console.log("Error en formulario");
     }
   }

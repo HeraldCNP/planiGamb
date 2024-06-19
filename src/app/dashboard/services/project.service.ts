@@ -69,6 +69,12 @@ export class ProjectService {
     return this.http.get<any[]>(url, { headers: header });
   }
 
+  getProgramas(): Observable<any[]> {
+    const url = `${this.baseUrl}/programa`;
+    const header = this.headers;
+    return this.http.get<any[]>(url, { headers: header });
+  }
+
   createProject(data: any): Observable<any> {
     const url = `${this.baseUrl}/proyect`;
     const header = this.headers;
