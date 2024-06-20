@@ -2,11 +2,12 @@ import { Component, Inject, inject, signal } from '@angular/core';
 import { MaterialModule } from '../../../../../material/material.module';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../../../services/project.service';
+import { NgxPrintModule } from 'ngx-print';
 
 @Component({
   selector: 'app-project-detalle',
   standalone: true,
-  imports: [MaterialModule],
+  imports: [MaterialModule, NgxPrintModule],
   templateUrl: './project-detalle.component.html',
   styleUrl: './project-detalle.component.css'
 })
@@ -19,6 +20,7 @@ export class ProjectDetalleComponent {
   inputData: any;
   project= signal<any>(null);
   loading = signal<boolean>(false);
+  date = new Date();
 
   closeDialog(data: any) {
     this.ref.close(data);
