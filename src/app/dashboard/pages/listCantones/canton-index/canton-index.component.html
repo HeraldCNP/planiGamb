@@ -1,0 +1,252 @@
+<div class="row px-2">
+    <div class="col-md-3">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Lista de Cantones</mat-card-title>
+                <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+                <span class="spacer"></span>
+                <mat-dialog-actions>
+                    <button mat-mini-fab matTooltip="Crear Nuevo" color="primary"
+                        aria-label="Example mini fab with a heart icon" (click)="createCanton()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-dialog-actions>
+
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <div>
+                    <table mat-table mat-table [dataSource]="dataSource" matSort class="small-text-table">
+
+                        <ng-container matColumnDef="canton">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantón</th>
+                            <td mat-cell *matCellDef="let row">{{ row.canton | titlecase }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numHabitantes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Habitantes</th>
+                            <td mat-cell *matCellDef="let row">{{ row.numHabitantes }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones" width="20px">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                            <td></td>
+                            <td mat-cell *matCellDef="let row">
+                                <button class="iconBtn" (click)="loadSubcentralias(row._id)" mat-icon-button
+                                    color="accent" matTooltip="Ver Subcentralias"
+                                    aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>preview</mat-icon>
+                                </button>
+                                <button class="iconBtn" (click)="editCanton(row._id)" mat-icon-button color="primary"
+                                    matTooltip="Editar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <!-- <button class="iconBtn" (click)="deleteProject(row._id)" mat-icon-button color="warn"
+                                    matTooltip="Eliminar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>delete</mat-icon>
+                                </button> -->
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-md-3">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Subcentralias canton: <span *ngIf="selectedCanton">{{ selectedCanton | titlecase
+                        }}</span></mat-card-title>
+                <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+                <span class="spacer"></span>
+                <mat-dialog-actions>
+                    <button mat-mini-fab matTooltip="Crear Nuevo" color="primary"
+                        aria-label="Example mini fab with a heart icon" (click)="createSubcentral()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-dialog-actions>
+
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <div>
+                    <table mat-table mat-table [dataSource]="dataSource1" matSort class="small-text-table">
+
+                        <ng-container matColumnDef="subcentral">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Subcentralia</th>
+                            <td mat-cell *matCellDef="let row">{{ row.subcentralia | titlecase }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numHabitantes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Habitantes</th>
+                            <td mat-cell *matCellDef="let row">{{ row.numHabitantes }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                            <td></td>
+                            <td mat-cell *matCellDef="let row">
+                                <button class="iconBtn" (click)="loadComunidades(row._id)" mat-icon-button
+                                    color="accent" matTooltip="Ver Comunidades"
+                                    aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>preview</mat-icon>
+                                </button>
+
+                                <button class="iconBtn" (click)="editSubcentral(row._id)" mat-icon-button
+                                    color="primary" matTooltip="Editar"
+                                    aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <!-- <button class="iconBtn" (click)="addArchivo(row._id)" mat-icon-button color="primary"
+                                    matTooltip="Añadir Archivo" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>library_add</mat-icon>
+                                </button>
+
+                                <button class="iconBtn" (click)="deleteProject(row._id)" mat-icon-button color="warn"
+                                    matTooltip="Eliminar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>delete</mat-icon>
+                                </button> -->
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-md-3">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Comunidades Subcentralia: <span *ngIf="selectedSubcrentalia">{{ selectedSubcrentalia |
+                        titlecase }}</span></mat-card-title>
+                <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+                <span class="spacer"></span>
+                <mat-dialog-actions>
+                    <button mat-mini-fab matTooltip="Crear Nuevo" color="primary"
+                        aria-label="Example mini fab with a heart icon" (click)="createComunidad()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </mat-dialog-actions>
+
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <div>
+                    <table mat-table mat-table [dataSource]="dataSource2" matSort class="small-text-table">
+
+                        <ng-container matColumnDef="comunidad">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Comunidad</th>
+                            <td mat-cell *matCellDef="let row">{{ row.comunidad | titlecase }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="numHabitantes">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Habitantes</th>
+                            <td mat-cell *matCellDef="let row">{{ row.numHabitantes }}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="acciones" width="200px">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                            <td></td>
+                            <td mat-cell *matCellDef="let row">
+                                <button class="iconBtn" (click)="loadSecciones(row._id)" mat-icon-button color="accent"
+                                    matTooltip="Ver Detalle" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>preview</mat-icon>
+                                </button>
+
+                                <button class="iconBtn" (click)="editComunidad(row._id)" mat-icon-button color="primary"
+                                    matTooltip="Editar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <!-- <button class="iconBtn" (click)="addArchivo(row._id)" mat-icon-button color="primary"
+                                    matTooltip="Añadir Archivo" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>library_add</mat-icon>
+                                </button>
+
+                                <button class="iconBtn" (click)="deleteProject(row._id)" mat-icon-button color="warn"
+                                    matTooltip="Eliminar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>delete</mat-icon>
+                                </button> -->
+                            </td>
+                        </ng-container>
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-md-3">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Secciones Comunidad: <span *ngIf="selectedComunidad">{{ selectedComunidad | titlecase
+                        }}</span></mat-card-title>
+                <!-- <mat-card-subtitle>End</mat-card-subtitle> -->
+                <span class="spacer"></span>
+                <mat-dialog-actions>
+                    <!-- <button mat-mini-fab matTooltip="Crear Nuevo" color="primary"
+                        aria-label="Example mini fab with a heart icon" (click)="createComunidad()">
+                        <mat-icon>add</mat-icon>
+                    </button> -->
+                </mat-dialog-actions>
+
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <div>
+                    <table mat-table mat-table [dataSource]="dataSource3" matSort class="small-text-table">
+
+                        <ng-container matColumnDef="seccion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Seccion/Barrio</th>
+                            <td mat-cell *matCellDef="let row">{{ row | titlecase }}</td>
+                        </ng-container>
+
+
+                        <!-- <ng-container matColumnDef="acciones">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                            <td></td>
+                            <td mat-cell *matCellDef="let row">
+                                <button class="iconBtn" (click)="loadSubcentralias(row._id)" mat-icon-button
+                                    color="accent" matTooltip="Ver Detalle"
+                                    aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>preview</mat-icon>
+                                </button>
+                                <button class="iconBtn" (click)="addArchivo(row._id)" mat-icon-button color="primary"
+                                    matTooltip="Añadir Archivo" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>library_add</mat-icon>
+                                </button>
+                                <button class="iconBtn" (click)="editProject(row._id)" mat-icon-button color="primary"
+                                    matTooltip="Editar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button class="iconBtn" (click)="deleteProject(row._id)" mat-icon-button color="warn"
+                                    matTooltip="Eliminar" aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container> -->
+
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+
+                    </table>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

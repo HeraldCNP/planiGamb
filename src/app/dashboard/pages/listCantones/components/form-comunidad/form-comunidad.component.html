@@ -1,0 +1,50 @@
+<form class="create-form" [formGroup]="comunidadForm">
+    <h2 mat-dialog-title>{{ inputData.title }}</h2>
+    <mat-dialog-content class="mat-typography">
+
+        <mat-card class="">
+            <mat-card-content>
+
+
+                <mat-form-field class="full-width">
+                    <mat-label>Subcentralia</mat-label>
+                    <mat-select formControlName="subcentralia">
+                        @for (subcentral of subcentralias(); track $index) {
+                        <mat-option [value]="subcentral._id">
+                            {{subcentral.subcentralia}}
+                        </mat-option>
+                        }
+                    </mat-select>
+                    <mat-icon matSuffix>wc</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Ej. Betanzos" formControlName="comunidad" type="text">
+                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-error *ngIf="form['comunidad'].hasError('required') && form['comunidad'].touched">
+                        El comunidad Completo es obligatorio.
+                    </mat-error>
+                    <mat-error *ngIf="form['comunidad'].hasError('comunidad') && form['comunidad'].touched">
+                        El comunidad Completo de ser valido.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Numero de Habitantes</mat-label>
+                    <input type="number" matInput placeholder="Numero de Habitantes" formControlName="numHabitantes">
+                </mat-form-field>
+
+            </mat-card-content>
+        </mat-card>
+
+    </mat-dialog-content>
+    {{comunidadForm.value | json}}
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button (click)="saveComunidad()" *ngIf="inputData.id == 0" mat-raised-button color="primary"
+            [disabled]="comunidadForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+        <button (click)="editComunidad(inputData.id)" *ngIf="inputData.id != 0" mat-raised-button color="primary" [disabled]="comunidadForm.invalid"
+        ><mat-icon>save</mat-icon>Editar</button>
+    </mat-dialog-actions>
+</form>

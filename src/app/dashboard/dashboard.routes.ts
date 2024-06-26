@@ -5,6 +5,7 @@ import { ProjectIndexComponent } from './pages/projects/project-index/project-in
 import { ProjectCreateComponent } from './pages/projects/project-create/project-create.component';
 import { ProjectDocumentComponent } from './pages/projects/project-document/project-document.component';
 import { ProjectUpdateComponent } from './pages/projects/project-update/project-update.component';
+import { CantonIndexComponent } from './pages/listCantones/canton-index/canton-index.component';
 
 
 
@@ -15,6 +16,7 @@ export const DASHBOARD_ROUTES: Routes = [
             { path: 'projects/create', component: ProjectCreateComponent },
             { path: 'projects/document/:id', component: ProjectDocumentComponent },
             { path: 'projects/edit/:id', component: ProjectUpdateComponent },
+            { path: 'cantones', component: CantonIndexComponent },
             { path: '**', redirectTo: 'projects' }
         ]
     }

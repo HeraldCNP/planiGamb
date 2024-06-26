@@ -1,0 +1,50 @@
+<form class="create-form" [formGroup]="subcentralForm">
+    <h2 mat-dialog-title>{{ inputData.title }}</h2>
+    <mat-dialog-content class="mat-typography">
+
+        <mat-card class="">
+            <mat-card-content>
+
+
+                <mat-form-field class="full-width">
+                    <mat-label>Cantón</mat-label>
+                    <mat-select formControlName="canton">
+                        @for (canton of cantones(); track $index) {
+                        <mat-option [value]="canton._id">
+                            {{canton.canton}}
+                        </mat-option>
+                        }
+                    </mat-select>
+                    <mat-icon matSuffix>wc</mat-icon>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Ej. Betanzos" formControlName="subcentralia" type="text">
+                    <mat-icon matSuffix>mail</mat-icon>
+                    <mat-error *ngIf="form['subcentralia'].hasError('required') && form['subcentralia'].touched">
+                        El subcentralia Completo es obligatorio.
+                    </mat-error>
+                    <mat-error *ngIf="form['subcentralia'].hasError('subcentralia') && form['subcentralia'].touched">
+                        El subcentralia Completo de ser valido.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Numero de Habitantes</mat-label>
+                    <input type="number" matInput placeholder="Numero de Habitantes" formControlName="numHabitantes">
+                </mat-form-field>
+
+            </mat-card-content>
+        </mat-card>
+
+    </mat-dialog-content>
+    {{subcentralForm.value | json}}
+    <mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button (click)="saveSubCentral()" *ngIf="inputData.id == 0" mat-raised-button color="primary"
+            [disabled]="subcentralForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
+        <button (click)="editSubcentral(inputData.id)" *ngIf="inputData.id != 0" mat-raised-button color="primary" [disabled]="subcentralForm.invalid"
+        ><mat-icon>save</mat-icon>Editar</button>
+    </mat-dialog-actions>
+</form>
