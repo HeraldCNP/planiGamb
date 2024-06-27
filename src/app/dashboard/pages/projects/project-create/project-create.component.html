@@ -82,7 +82,7 @@
               <mat-form-field class="three-col">
                 <mat-label>Seleccione un Programa</mat-label>
                 <mat-select formControlName="programa">
-                  <mat-option *ngFor="let programa of programas()" [value]="programa._id">{{
+                  <mat-option *ngFor="let programa of programas()" [value]="programa._id">{{ programa.codigo ? programa.codigo : '' }} - {{
                     programa.denominacion |
                     titlecase }}</mat-option>
                 </mat-select>
@@ -244,6 +244,9 @@
               </mat-form-field>
 
               <div class="mb-3">
+
+                <mat-slide-toggle formControlName="estado" labelPosition="before" class="m-three-col"
+                color="primary">ESTADO</mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="itcp" labelPosition="before" class="m-three-col"
                   color="primary">ITCP</mat-slide-toggle>

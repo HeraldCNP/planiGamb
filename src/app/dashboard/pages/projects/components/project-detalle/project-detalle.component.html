@@ -24,19 +24,19 @@
                                 <span class="spacer"></span>
                                 <div class="text-container">
                                     <span class="small-text">Nombre del Proyecto</span>
-                                    <span class="big-text">{{ project().nombreProyecto | titlecase }}</span>
+                                    <span class="big-text">{{ project().nombreProyecto | uppercase }}</span>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="text-container">
-                                            <span class="small-text">Canton</span>
+                                            <span class="small-text">Cantón</span>
                                             <span class="big-text">{{ project().canton | titlecase }}</span>
                                         </div>
                                     </div>
 
                                     <div class="col-md-2">
                                         <div class="text-container">
-                                            <span class="small-text">Subcentralia</span>
+                                            <span class="small-text">Subcentralía</span>
                                             <span class="big-text">{{ project().subcentralia | titlecase }}</span>
                                         </div>
                                     </div>
@@ -48,15 +48,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="text-container">
                                             <span class="small-text">Programa</span>
-                                            <span class="big-text">{{ project().programa ?
+                                            <span class="big-text">{{ project().programa.codigo ?
+                                                project().programa.codigo : '-' }} - {{ project().programa ?
                                                 project().programa.denominacion : '-' }}</span>
                                         </div>
                                     </div>
+
+                                    <div class="col-md-2">
+                                        <div class="text-container">
+                                            <span class="small-text">Tipo de Estudio</span>
+                                            <span class="big-text">{{ project().tipoEstudio ? project().tipoEstudio : '-' }}</span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row mt-3">
+                                <div class="row mt-2">
                                     <div class="col-md-2">
                                         <div class="text-container">
                                             <span class="small-text">Gestión</span>
@@ -67,7 +75,7 @@
                                     <div class="col-md-2">
                                         <div class="text-container">
                                             <span class="small-text">Codigo de Proyecto</span>
-                                            <span class="big-text">{{ project().codigoProyecto | titlecase }}</span>
+                                            <span class="big-text">{{ project().codigoProyecto | uppercase }}</span>
                                         </div>
                                     </div>
 
@@ -115,7 +123,7 @@
                                     <div class="col-md-2">
                                         <div class="text-container">
                                             <span class="small-text">Estado</span>
-                                            <span class="big-text">{{ project().estado === 'true' ? 'Ejecutado' : 'No
+                                            <span class="big-text">{{ project().estado === true ? 'Ejecutado' : 'No
                                                 Ejecutado' }}</span>
                                         </div>
                                     </div>
@@ -245,6 +253,9 @@
                         </mat-card-content>
                         }
                     </div>
+                    <mat-dialog-actions align="end">
+                        <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cerrar</button>
+                    </mat-dialog-actions>
                 </div>
             </mat-card>
         </div>

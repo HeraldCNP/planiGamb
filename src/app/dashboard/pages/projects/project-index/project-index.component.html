@@ -151,7 +151,7 @@
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
               
               <td mat-cell *matCellDef="let row">
-                @if (row.estado == 'true') {
+                @if (row.estado === true) {
                   <span class="badge text-bg-success">Ejecutado</span>
                 }@else{
                   <span class="badge text-bg-danger">No Ejecutado</span>
