@@ -18,7 +18,7 @@
                 <mat-label>Seleccione un Cantón</mat-label>
                 <mat-select formControlName="canton" [value]="selectedCanton()"
                   (selectionChange)="selectedCanton.set($event.value)">
-                  <mat-option *ngFor="let canton of cantones()" [value]="canton.canton">{{ canton.canton | titlecase
+                  <mat-option *ngFor="let canton of cantones()" [value]="canton.canton">{{ canton.canton | uppercase
                     }}</mat-option>
                 </mat-select>
                 <mat-icon matSuffix>calendar_month</mat-icon>
@@ -32,7 +32,7 @@
                 <mat-select formControlName="subcentralia" [value]="selectedSubcentral()"
                   (selectionChange)="selectedSubcentral.set($event.value)">
                   <mat-option *ngFor="let subcentral of subcentrales()" [value]="subcentral.subcentralia">{{
-                    subcentral.subcentralia | titlecase }}</mat-option>
+                    subcentral.subcentralia | uppercase }}</mat-option>
                 </mat-select>
                 <mat-icon matSuffix>calendar_month</mat-icon>
                 <mat-error *ngIf="form['subcentralia'].hasError('required') && form['subcentralia'].touched">
@@ -45,7 +45,7 @@
                 <mat-select formControlName="comunidad">
                   <mat-option *ngFor="let comunidad of comunidades()" [value]="comunidad.comunidad">{{
                     comunidad.comunidad |
-                    titlecase }}</mat-option>
+                    uppercase }}</mat-option>
                 </mat-select>
                 <mat-icon matSuffix>calendar_month</mat-icon>
                 <mat-error *ngIf="form['comunidad'].hasError('required') && form['comunidad'].touched">
@@ -53,11 +53,12 @@
                 </mat-error>
               </mat-form-field>
 
-              <app-select-year [control]="projectForm.get('gestion')" [clases]="'full-width'" [texto]="'Proyecto Elaborado en la Gestión'"></app-select-year>
+              <app-select-year [control]="projectForm.get('gestion')" [clases]="'full-width'"
+                [texto]="'Proyecto Elaborado en la Gestión'"></app-select-year>
 
               <mat-form-field class="three-col">
                 <mat-label>Costo</mat-label>
-                <input matInput placeholder="Ej. ....." formControlName="costo" type="number">
+                <input matInput placeholder="Ej. ....." step="0.01" formControlName="costo" type="number">
                 <mat-icon matSuffix>123</mat-icon>
                 <mat-error *ngIf="form['costo'].hasError('required') && form['costo'].touched">
                   El costo es obligatorio.
@@ -82,9 +83,9 @@
               <mat-form-field class="three-col">
                 <mat-label>Seleccione un Programa</mat-label>
                 <mat-select formControlName="programa">
-                  <mat-option *ngFor="let programa of programas()" [value]="programa._id">{{ programa.codigo ? programa.codigo : '' }} - {{
-                    programa.denominacion |
-                    titlecase }}</mat-option>
+                  <mat-option *ngFor="let programa of programas()" [value]="programa._id">{{ programa.codigo ?
+                    programa.codigo : '' }} - {{
+                    programa.denominacion | uppercase }}</mat-option>
                 </mat-select>
                 <mat-icon matSuffix>calendar_month</mat-icon>
                 <mat-error *ngIf="form['programa'].hasError('required') && form['programa'].touched">
@@ -107,11 +108,11 @@
               <mat-form-field class="three-col">
                 <mat-label>Seleccione un Tipo de Proyecto</mat-label>
                 <mat-select formControlName="tipoProyecto">
-                  <mat-option [value]="'PDEP'">{{ 'Desarrollo Empresarial Productivo' }}</mat-option>
-                  <mat-option [value]="'PADP'">{{ 'Apoyo al Desarrollo Productivo' }}</mat-option>
-                  <mat-option [value]="'PDS'">{{ 'Desarrollo Social' }}</mat-option>
-                  <mat-option [value]="'PFI'">{{ 'Fortalecimiento Institucional' }}</mat-option>
-                  <mat-option [value]="'PIDT'">{{ 'Investigación y Desarrollo Tecnológico' }}</mat-option>
+                  <mat-option [value]="'PDEP'">{{ 'DESARROLLO EMPRESARIAL PRODUCTIVO' }}</mat-option>
+                  <mat-option [value]="'PADP'">{{ 'APOYO AL DESARROLLO PRODUCTIVO' }}</mat-option>
+                  <mat-option [value]="'PDS'">{{ 'DESARROLLO SOCIAL' }}</mat-option>
+                  <mat-option [value]="'PFI'">{{ 'FORTALECIMIENTO INSTITUCIONAL' }}</mat-option>
+                  <mat-option [value]="'PIDT'">{{ 'INVESTIGACIÓN Y DESARROLLO TECNOLÓGICO' }}</mat-option>
                 </mat-select>
                 <mat-icon matSuffix>calendar_month</mat-icon>
                 <mat-error *ngIf="form['tipoProyecto'].hasError('required') && form['tipoProyecto'].touched">
@@ -243,19 +244,20 @@
                 </mat-error>
               </mat-form-field>
 
-              <div class="mb-3">
+              <div class="d-flex justify-content-around mb-3">
 
                 <mat-slide-toggle formControlName="estado" labelPosition="before" class="m-three-col"
-                color="primary">ESTADO</mat-slide-toggle>
+                  color="primary"><b>ESTADO:</b> {{ form['estado'].value? 'Ejecutado' : 'No Ejecutado' }}
+                </mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="itcp" labelPosition="before" class="m-three-col"
-                  color="primary">ITCP</mat-slide-toggle>
+                  color="primary"><b>ITCP: </b> {{ form['itcp'].value? 'Existe' : 'No Existe' }}</mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="fichaAmbiental" labelPosition="before" class="m-three-col"
-                  color="primary">Ficha Ambiental</mat-slide-toggle>
+                  color="primary"><b>FICHA AMBIENTAL: </b>{{ form['fichaAmbiental'].value? 'Existe' : 'No Existe' }} </mat-slide-toggle>
 
                 <mat-slide-toggle formControlName="plano" labelPosition="before" class="m-three-col"
-                  color="primary">Plano</mat-slide-toggle>
+                  color="primary"><b>PLANO: </b> {{ form['plano'].value? 'Existe' : 'No Existe' }}</mat-slide-toggle>
               </div>
 
               <!-- <mat-form-field class="inline">
