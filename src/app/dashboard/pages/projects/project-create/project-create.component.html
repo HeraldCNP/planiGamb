@@ -51,7 +51,7 @@
                 <mat-error *ngIf="form['comunidad'].hasError('required') && form['comunidad'].touched">
                   La comunidad es obligatoria.
                 </mat-error>
-              </mat-form-field>
+              </mat-form-field> 
 
               <app-select-year [control]="projectForm.get('gestion')" [clases]="'full-width'" [texto]="'Proyecto Elaborado en la Gestión'"></app-select-year>
 
