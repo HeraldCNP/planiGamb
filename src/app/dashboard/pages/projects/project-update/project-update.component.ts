@@ -205,9 +205,9 @@ export class ProjectUpdateComponent implements OnInit {
       formData.append('estante', this.editForm.get('estante').value ? this.editForm.get('estante').value : '');
       formData.append('fila', this.editForm.get('fila').value ? this.editForm.get('fila').value : '');
       formData.append('observaciones', this.editForm.get('observaciones').value ? this.editForm.get('observaciones').value : '');
-      formData.append('itcp', this.editForm.get('itcp').value ? this.editForm.get('itcp').value : 'false');
-      formData.append('fichaAmbiental', this.editForm.get('fichaAmbiental').value ? this.editForm.get('fichaAmbiental').value : 'false');
-      formData.append('plano', this.editForm.get('plano').value ? this.editForm.get('plano').value : 'false');
+      formData.append('itcp', this.editForm.get('itcp').value ? this.editForm.get('itcp').value : '');
+      formData.append('fichaAmbiental', this.editForm.get('fichaAmbiental').value ? this.editForm.get('fichaAmbiental').value : '');
+      formData.append('plano', this.editForm.get('plano').value ? this.editForm.get('plano').value : '');
 
       this.projectService.updateProject(formData, this.idProject).subscribe((event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
