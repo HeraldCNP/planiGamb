@@ -7,11 +7,13 @@ import { MaterialModule } from '../../../../material/material.module';
 import { SelectYearComponent } from '../../../../components/select-year/select-year.component';
 import { HttpEventType } from '@angular/common/http';
 import { LoaderDirective } from '../../../../directives/loader.directive';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-project-create',
   standalone: true,
-  imports: [MaterialModule, ReactiveFormsModule, SelectYearComponent, FormsModule, LoaderDirective],
+  imports: [MaterialModule, ReactiveFormsModule, SelectYearComponent, FormsModule, LoaderDirective, NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './project-create.component.html',
   styleUrl: './project-create.component.css'
 })

@@ -58,7 +58,7 @@
 
               <mat-form-field class="three-col">
                 <mat-label>Costo</mat-label>
-                <input matInput placeholder="Ej. ....." step="0.01" formControlName="costo" type="number">
+                <input matInput placeholder="Ej. ....." formControlName="costo" type="text" mask="separator.2" thousandSeparator="." decimalSeparator="," [dropSpecialCharacters]="true">
                 <mat-icon matSuffix>123</mat-icon>
                 <mat-error *ngIf="form['costo'].hasError('required') && form['costo'].touched">
                   El costo es obligatorio.
@@ -316,7 +316,7 @@
     </mat-card>
 
 
-    <!-- {{projectForm.value | json}} -->
+    <!-- {{ projectForm.value | json }} -->
 
     <!-- <button (click)="saveCarpeta()" *ngIf="inputData.id === 0" mat-raised-button color="primary"
         [disabled]="carpetaForm.invalid"><mat-icon>save</mat-icon>Registrar</button>
