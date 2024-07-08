@@ -137,6 +137,7 @@
 
               <mat-form-field class="three-col">
                 <mat-label>Plazo (Días Calendario)</mat-label>
+                
                 <input matInput placeholder="Ej. ....." formControlName="plazo" type="number">
                 <mat-icon matSuffix>123</mat-icon>
                 <mat-error *ngIf="form['plazo'].hasError('required') && form['plazo'].touched">
