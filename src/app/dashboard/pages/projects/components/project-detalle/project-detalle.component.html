@@ -3,12 +3,18 @@
         <div class="col-md-12">
             <mat-card>
                 <div class="row">
+
                     <div class="col-md-10 offset-md-1">
                         <mat-card-header>
                             <mat-card-title>
-                                <span>{{ inputData.title }}</span> <button mat-icon-button color="primary"
+                                <span>{{ inputData.title }}</span>
+                                <!-- <button mat-icon-button color="primary"
                                     aria-label="Imprimir" [useExistingCss]="true" printSectionId="printSection"
                                     ngxPrint>
+                                    <mat-icon>print</mat-icon>
+                                </button> -->
+                                <button mat-icon-button color="primary" aria-label="Imprimir" (click)="getProjectInfo()"
+                                    target="_blank">
                                     <mat-icon>print</mat-icon>
                                 </button>
                             </mat-card-title>
@@ -18,212 +24,219 @@
 
                         </mat-card-header>
                         <mat-divider></mat-divider>
+                        <mat-dialog-content >
+                            <mat-card-content class="contenido textito" id="printSection" *ngIf="project()">
+                                <div class="report-container">
+                                    <!-- <div class="header">
+                                        <h1>Encabezado del Reporte</h1>
+                                    </div> -->
 
-                        <mat-card-content class="contenido" id="printSection" *ngIf="project()">
-                            <div class="report-container">
-                                <div class="header">
-                                    <h1>Encabezado del Reporte</h1>
+                                    <div class="content">
+                                        <h3>I. Datos del Proyecto</h3>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="text-container">
+                                                    <p><b>Código del Proyecto: </b>{{ project().codigoProyecto |
+                                                        uppercase
+                                                        }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-container">
+                                                    <p><b>Código Sisin: </b>{{ project().codigoSisin | uppercase }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-container">
+                                                    <p><b>Nombre del Proyecto: </b>{{ project().nombreProyecto |
+                                                        uppercase
+                                                        }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-container">
+                                                    <p><b>Programa: </b>{{ project().programa.codigo ?
+                                                        project().programa.codigo : '-' }} - {{ project().programa ?
+                                                        project().programa.denominacion : '' }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="text-container">
+                                                    <p>
+                                                        <b>Tipo de Proyecto: </b>
+                                                        @switch (project().tipoProyecto) {
+                                                        @case ("PDEP") {
+                                                        <span>{{ 'Desarrollo Empresarial Productivo' | uppercase
+                                                            }}</span>
+                                                        }
+                                                        @case ("PADP") {
+                                                        <span>{{ 'Apoyo al Desarrollo Productivo' | uppercase }}</span>
+                                                        }
+                                                        @case ("PDS") {
+                                                        <span>{{ 'Desarrollo Social' | uppercase }}</span>
+                                                        }
+                                                        @case ("PFI") {
+                                                        <span>{{ 'Fortalecimiento Institucional' | uppercase }}</span>
+                                                        }
+                                                        @case ("PIDT") {
+                                                        <span>{{ 'Investigación y Desarrollo Tecnológico' | uppercase
+                                                            }}</span>
+                                                        }
+                                                        }
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="text-container">
+                                                    <p><b>Tipo de Estudio: </b>{{ project().tipoEstudio | uppercase }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Gestión</th>
+                                                    <th>Cantón</th>
+                                                    <th>Subcentralía</th>
+                                                    <th>Comunidad</th>
+                                                    <th>Costo</th>
+                                                    <th>Estado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ project().gestion | uppercase }}</td>
+                                                    <td>{{ project().canton | uppercase }}</td>
+                                                    <td>{{ project().subcentralia | uppercase }}</td>
+                                                    <td>{{ project().comunidad | uppercase }}</td>
+                                                    <td>{{ project().costo | currency : "USD" : "" }}</td>
+                                                    <td>{{ project().estado === true ? 'EJECUTADO' : 'NO EJECUTADO' }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-container">
+                                                    <p><b>Detalle: </b>{{ project().detalle | uppercase }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="text-container">
+                                                    <p><b>Observaciones: </b>{{ project().observaciones | uppercase }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h3>II. Datos de la Empresa</h3>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Nombre</th>
+                                                    <th>Contacto</th>
+                                                    <th>Supervisor</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ project().empresa | uppercase }}</td>
+                                                    <td>{{ project().contactoEmpresa | uppercase }}</td>
+                                                    <td>{{ project().supervisor | uppercase }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <h3>III. Resguardo de Documentos</h3>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Ubicación de archivo</th>
+                                                    <th>Estante</th>
+                                                    <th>Fila</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>{{ project().lugar | uppercase }}</td>
+                                                    <td>{{ project().estante | uppercase }}</td>
+                                                    <td>{{ project().fila | uppercase }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <div class="row mt-3">
+                                            <div class="col-md-3">
+                                                <div class="text-container">
+                                                    <span class="small-text">ITCP</span>
+                                                    @if(project().itcp === true) {
+                                                    <mat-icon class="good">check_circle</mat-icon>Existe
+                                                    }@else {
+                                                    <mat-icon class="wrong">cancel</mat-icon>No Existe
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-container">
+                                                    <span class="small-text">Ficha Ambiental</span>
+                                                    @if(project().fichaAmbiental === true) {
+                                                    <mat-icon class="good">check_circle</mat-icon>Existe
+                                                    }@else {
+                                                    <mat-icon class="wrong">cancel</mat-icon>No Existe
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-container">
+                                                    <span class="small-text">Plano</span>
+                                                    @if(project().plano === true) {
+                                                    <mat-icon class="good">check_circle</mat-icon>Existe
+                                                    }@else {
+                                                    <mat-icon class="wrong">cancel</mat-icon>No Existe
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="text-container">
+                                                    <span class="small-text">Documentos en Digital</span>
+                                                    @if(project().documentosDigital === true) {
+                                                    <mat-icon class="good">check_circle</mat-icon>Existe
+                                                    }@else {
+                                                    <mat-icon class="wrong">cancel</mat-icon>No Existe
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <hr>
+
+                                    <div class="d-flex justify-content-between mt-5">
+                                        <span class="fecha" style="font-size: 0.7rem">
+                                            Fecha de Impresión: {{ date | date : "short" }}
+                                        </span>
+                                        <span class="fecha" style="font-size: 0.7rem">
+                                            Usuario: {{ project().user.name | titlecase }}
+                                        </span>
+                                    </div>
                                 </div>
-
-                                <div class="content">
-                                    <h3>I. Datos del Proyecto</h3>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="text-container">
-                                                <p><b>Código del Proyecto: </b>{{ project().codigoProyecto | uppercase
-                                                    }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="text-container">
-                                                <p><b>Código Sisin: </b>{{ project().codigoSisin | uppercase }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-container">
-                                                <p><b>Nombre del Proyecto: </b>{{ project().nombreProyecto | uppercase
-                                                    }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-container">
-                                                <p><b>Programa: </b>{{ project().programa.codigo ?
-                                                    project().programa.codigo : '-' }} - {{ project().programa ?
-                                                    project().programa.denominacion : '' }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="text-container">
-                                                <p>
-                                                    <b>Tipo de Proyecto: </b>
-                                                    @switch (project().tipoProyecto) {
-                                                    @case ("PDEP") {
-                                                    <span>{{ 'Desarrollo Empresarial Productivo' | uppercase }}</span>
-                                                    }
-                                                    @case ("PADP") {
-                                                    <span>{{ 'Apoyo al Desarrollo Productivo' | uppercase }}</span>
-                                                    }
-                                                    @case ("PDS") {
-                                                    <span>{{ 'Desarrollo Social' | uppercase }}</span>
-                                                    }
-                                                    @case ("PFI") {
-                                                    <span>{{ 'Fortalecimiento Institucional' | uppercase }}</span>
-                                                    }
-                                                    @case ("PIDT") {
-                                                    <span>{{ 'Investigación y Desarrollo Tecnológico' | uppercase
-                                                        }}</span>
-                                                    }
-                                                    }
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="text-container">
-                                                <p><b>Tipo de Estudio: </b>{{ project().tipoEstudio | uppercase }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Gestión</th>
-                                                <th>Cantón</th>
-                                                <th>Subcentralía</th>
-                                                <th>Comunidad</th>
-                                                <th>Costo</th>
-                                                <th>Estado</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ project().gestion | uppercase }}</td>
-                                                <td>{{ project().canton | uppercase }}</td>
-                                                <td>{{ project().subcentralia | uppercase }}</td>
-                                                <td>{{ project().comunidad | uppercase }}</td>
-                                                <td>{{ project().costo | currency : "USD" : "" }}</td>
-                                                <td>{{ project().estado === true ? 'EJECUTADO' : 'NO EJECUTADO' }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-container">
-                                                <p><b>Detalle: </b>{{ project().detalle | uppercase }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="text-container">
-                                                <p><b>Observaciones: </b>{{ project().observaciones | uppercase }}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <h3>II. Datos de la Empresa</h3>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Contacto</th>
-                                                <th>Supervisor</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ project().empresa | uppercase }}</td>
-                                                <td>{{ project().contactoEmpresa | uppercase }}</td>
-                                                <td>{{ project().supervisor | uppercase }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <h3>III. Resguardo de Documentos</h3>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Ubicación de archivo</th>
-                                                <th>Estante</th>
-                                                <th>Fila</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>{{ project().lugar | uppercase }}</td>
-                                                <td>{{ project().estante | uppercase }}</td>
-                                                <td>{{ project().fila | uppercase }}</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <div class="row mt-3">
-                                        <div class="col-md-3">
-                                            <div class="text-container">
-                                                <span class="small-text">ITCP</span>
-                                                @if(project().itcp === true) {
-                                                <mat-icon class="good">check_circle</mat-icon>Existe
-                                                }@else {
-                                                <mat-icon class="wrong">cancel</mat-icon>No Existe
-                                                }
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="text-container">
-                                                <span class="small-text">Ficha Ambiental</span>
-                                                @if(project().fichaAmbiental === true) {
-                                                <mat-icon class="good">check_circle</mat-icon>Existe
-                                                }@else {
-                                                <mat-icon class="wrong">cancel</mat-icon>No Existe
-                                                }
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="text-container">
-                                                <span class="small-text">Plano</span>
-                                                @if(project().plano === true) {
-                                                <mat-icon class="good">check_circle</mat-icon>Existe
-                                                }@else {
-                                                <mat-icon class="wrong">cancel</mat-icon>No Existe
-                                                }
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3">
-                                            <div class="text-container">
-                                                <span class="small-text">Documentos en Digital</span>
-                                                @if(project().documentosDigital === true) {
-                                                <mat-icon class="good">check_circle</mat-icon>Existe
-                                                }@else {
-                                                <mat-icon class="wrong">cancel</mat-icon>No Existe
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <hr>
-
-                                <div class="d-flex justify-content-between mt-5">
-                                    <span class="fecha" style="font-size: 0.7rem">
-                                        Fecha de Impresión: {{ date | date : "short" }}
-                                    </span>
-                                    <span class="fecha" style="font-size: 0.7rem">
-                                        Usuario: {{ project().user.name | titlecase }}
-                                    </span>
-                                </div>
-                            </div>
-                        </mat-card-content>
+                            </mat-card-content>
+                        </mat-dialog-content>
 
                         <!--<mat-card-content class="contenido" id="printSection" *ngIf="project()">
                             <div class="container">
@@ -420,6 +433,8 @@
                         </mat-card-content> -->
 
                     </div>
+
+
                     <mat-dialog-actions align="end">
                         <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Cerrar</button>
                     </mat-dialog-actions>

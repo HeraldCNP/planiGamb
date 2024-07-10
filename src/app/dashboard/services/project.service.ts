@@ -94,6 +94,22 @@ export class ProjectService {
     return this.http.get<any>(url, { headers: header });
   }
 
+
+  getInfoProject(projectId: string): Observable<Blob> {
+    const header = this.headers;
+
+    // return this.http.get<{ url: string }>(`${this.baseUrl}/proyect/getInfoProject/${projectId}`, { headers: header, responseType: 'blob' });
+    return this.http.get(`${this.baseUrl}/proyect/getInfoProject/${projectId}`, { headers: header, responseType: 'blob' });
+  }
+
+  getPdf(projectId: string, token: string): Observable<Blob> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get(`${this.baseUrl}${projectId}`, { headers, responseType: 'blob' });
+  }
+
   addArchivo(data: any, id: any): Observable<any> {
     console.log(data.get('documentos'));
     const url = `${this.baseUrl}/proyect/addDocument/${id}`;

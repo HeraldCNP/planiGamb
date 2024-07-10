@@ -1,0 +1,18 @@
+.custom-form-field {
+    max-width: 150px; /* Ajusta esto según lo necesario */
+  }
+  
+  .custom-form-field .mat-mdc-form-field-flex {
+    height: 30px; /* Ajusta la altura según sea necesario */
+  }
+  
+  .custom-form-field .mat-mdc-form-field-infix {
+    padding: 0 4px; /* Ajusta el padding interno según sea necesario */
+  }
+  
+  .custom-form-field .mat-input-element {
+    height: 60%; /* Asegúrate de que el input llene toda la altura del form-field */
+    padding: 2px 4px; /* Ajusta el padding interno del input */
+    font-size: 10px; /* Ajusta el tamaño de la fuente si es necesario */
+  }
+  
